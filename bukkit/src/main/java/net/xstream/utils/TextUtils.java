@@ -35,6 +35,8 @@ public final class TextUtils {
 	 * @return The colorized text.
 	 */
 	public static @NotNull String parse(@NotNull String text) {
+		text = text.replace("<br>", "\n");
+		
 		if (VERSION < 16) return ChatColor.translateAlternateColorCodes('&', text);
 		
 		String[] parts = text.split(String.format("((?<=%1$s)|(?=%1$s))", "&"));
