@@ -100,6 +100,8 @@ publishing {
 			groupId = "net.xstream"
 			artifactId = "XStream"
 			version = release
+			
+			from(components["java"])
 		}
 	}
 }
