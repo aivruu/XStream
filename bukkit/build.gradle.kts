@@ -22,13 +22,13 @@ dependencies {
 	compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
 	
 	implementation(project(":api"))
-	implementation(project(":bungeecord"))
+	implementation(project(":bungee"))
 	
 	implementation("org.jetbrains:annotations:23.0.0")
 	implementation("commons-lang:commons-lang:2.6")
 	implementation("com.github.InitSync:XConfig:1.0.1")
 	implementation("com.github.cryptomorin:XSeries:9.1.0")
-	implementation("team.unnamed:gui-menu-api:3.4.0")
+	implementation("team.unnamed:gui-menu-api:3.3.6")
 }
 
 bukkit {
