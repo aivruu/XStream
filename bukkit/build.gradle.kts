@@ -1,8 +1,9 @@
 plugins {
-	id("java")
 	id("com.github.johnrengelman.shadow") version("7.1.2")
 	id("net.minecrell.plugin-yml.bukkit") version("0.5.2")
 	id("net.minecrell.plugin-yml.bungee") version("0.5.2")
+	`java-library`
+	`maven-publish`
 }
 
 val directory = property("group") as String
@@ -12,6 +13,7 @@ val description = "Simple way to announce your streams globally!"
 
 repositories {
 	maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+	maven("https://jitpack.io/")
 	mavenCentral()
 }
 
@@ -23,6 +25,7 @@ dependencies {
 	
 	implementation("org.jetbrains:annotations:23.0.0")
 	implementation("commons-lang:commons-lang:2.6")
+	implementation("com.github.InitSync:XConfig:1.0.0")
 }
 
 bukkit {
@@ -83,5 +86,15 @@ tasks {
 	
 	clean {
 		delete("$rootDir/bin/")
+	}
+}
+
+publishing {
+	publications {
+		create<MavenPublication>("maven") {
+			groupId = "net.xstream"
+			artifactId = "XStream"
+			version = release
+		}
 	}
 }
