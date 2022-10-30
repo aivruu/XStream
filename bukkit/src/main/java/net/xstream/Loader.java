@@ -1,7 +1,7 @@
 package net.xstream;
 
-import net.xconfig.config.ConfigurationHandler;
-import net.xconfig.config.ConfigurationModel;
+import net.xconfig.bukkit.config.BukkitConfigurationHandler;
+import net.xconfig.bukkit.config.BukkitConfigurationModel;
 import net.xconfig.services.ConfigurationService;
 import net.xstream.api.AbstractLoader;
 import org.jetbrains.annotations.NotNull;
@@ -19,44 +19,46 @@ import java.util.Objects;
 public final class Loader extends AbstractLoader {
 	private final XStream plugin;
 	
-	private ConfigurationModel configurationManager;
-	private ConfigurationHandler configurationHandler;
+	private BukkitConfigurationModel configurationManager;
+	private BukkitConfigurationHandler configurationHandler;
 	
 	public Loader(@NotNull XStream plugin) {
 		this.plugin = Objects.requireNonNull(plugin, "The XStream instance is null.");
 	}
 	
 	/**
-	 * Returns the ConfigurationModel object.
+	 * Returns the BukkitConfigurationModel object.
 	 *
-	 * @return A ConfigurationModel object.
+	 * @return A BukkitConfigurationModel object.
 	 */
-	public @NotNull ConfigurationModel configurationManager() {
+	public @NotNull BukkitConfigurationModel configurationManager() {
 		if (this.configurationManager == null) {
-			throw new IllegalStateException("Cannot access to the ConfigurationModel object.");
+			throw new IllegalStateException("Cannot access to the BukkitConfigurationModel object.");
 		}
 		return this.configurationManager;
 	}
 	
 	/**
-	 * Returns the ConfigurationHandler object, if it is null, will be throws an
+	 * Returns the BukkitConfigurationHandler object, if it is null, will be throws an
 	 * IllegalStateException.
 	 *
-	 * @return A ConfigurationHandler object.
+	 * @return A BukkitConfigurationHandler object.
 	 */
-	public @NotNull ConfigurationHandler configurationHandler() {
+	public @NotNull BukkitConfigurationHandler configurationHandler() {
 		if (this.configurationHandler == null) {
-			throw new IllegalStateException("Cannot access to the ConfigurationHandler instance.");
+			throw new IllegalStateException("Cannot access to the BukkitConfigurationHandler instance.");
 		}
 		return this.configurationHandler;
 	}
 	
 	@Override
 	public void enable() {
-		this.configurationManager = ConfigurationService.manager(this.plugin);
-		this.configurationManager.create("", "config.yml");
-		this.configurationManager.create("", "messages.yml");
-		this.configurationHandler = ConfigurationService.handler(this.configurationManager);
+		this.configurationManager = ConfigurationService.bukkitManager(this.plugin);
+		this.configurationManager.create("",
+			 "config.yml",
+			 "messages.yml");
+		this.configurationManager.load("config.yml", "messages.yml");
+		this.configurationHandler = ConfigurationService.bukkitHandler(this.configurationManager);
 	}
 	
 	@Override
