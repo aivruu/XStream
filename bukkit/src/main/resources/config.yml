@@ -1,0 +1,87 @@
+config:
+  # Plugin Messages Prefix
+  prefix: "&6[XStream]"
+
+  sounds:
+    # Sounds ID's
+    no-perm: ENTITY_ITEM_BREAK
+    reload: UI_BUTTON_CLICK
+    live: ENTITY_EXPERIENCE_ORB_PICKUP
+
+    # Sounds Volume
+    volume-level: 1
+
+  titles:
+    # Allow the titles?
+    allow: true
+
+    # Title Times Parameters (In ticks).
+    # In-Coming time.
+    fade-in: 20
+
+    # Staying time.
+    stay: 60
+
+    # Outing time.
+    fade-out: 20
+
+  live:
+    # Title for the Live Manager Menu.
+    menu-title: "&7Manager -> Live"
+
+    # Size for the menu.
+    size: 27
+
+    # Insert Live button.
+    insert-live:
+      # Material type.
+      material: GREEN_CLAY
+
+      # Slot position.
+      slot: 10
+
+      # Display Name.
+      display-name: "&8&l> &eInsert Stream URL"
+
+      # Item Lore.
+      lore: |-
+        &7To click the item, you must be insert the &6Stream Link
+        &7into the chat.
+
+    # Usage button.
+    usage:
+      # Material type.
+      material: PAPER
+
+      # Slot position.
+      slot: 13
+
+      # Display Name.
+      display-name: "&8&l> &bUsage"
+
+      # Item Lore.
+      lore: |-
+        &7If you press the &aInsert Stream &7button, you will be asked
+        &7insert the &dLive link&7.
+        &l
+        &7If you select the &cClose Menu &7button, will be close
+        &7the &cLive Manager &7menu.
+
+    # Close button.
+    close-menu:
+      # Material type.
+      material: RED_CLAY
+
+      # Slot position.
+      slot: 16
+
+      # Display Name.
+      display-name: "&8&l> &cClose Live Manager"
+
+      # Item Lore.
+      lore: |-
+        &7Do you want close the &cLive Manager&7?
+
+    content:
+      # If you want to add more custom items to the inventory, add it here.
+      pane-1:
