@@ -16,6 +16,12 @@ public final class XStream extends JavaPlugin {
 	
 	private Loader loader;
 	
+	public XStream() {
+		instance = this;
+		
+		this.loader = LoaderService.loader(this);
+	}
+	
 	/**
 	 * Returns the XStream instance, if it is null, will be throws an IllegalStateException.
 	 *
@@ -38,12 +44,6 @@ public final class XStream extends JavaPlugin {
 			throw new IllegalStateException("Cannot get the Loader instance.");
 		}
 		return this.loader;
-	}
-	
-	public XStream() {
-		instance = this;
-		
-		this.loader = LoaderService.loader(this);
 	}
 	
 	@Override
