@@ -4,6 +4,7 @@ plugins {
 
 repositories {
 	maven("https://oss.sonatype.org/content/groups/public/")
+	maven("https://jitpack.io/")
 	mavenCentral()
 }
 
@@ -14,4 +15,5 @@ dependencies {
 	
 	implementation("org.jetbrains:annotations:23.0.0")
 	implementation("commons-lang:commons-lang:2.6")
+	implementation("com.github.InitSync:XConfig:1.0.1")
 }
