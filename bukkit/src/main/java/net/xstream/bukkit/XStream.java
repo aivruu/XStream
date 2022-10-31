@@ -14,6 +14,8 @@ import org.jetbrains.annotations.NotNull;
 public final class XStream extends JavaPlugin {
 	private static XStream instance;
 	
+	public final String release = this.getDescription().getVersion();
+	
 	private Loader loader;
 	
 	public XStream() {
