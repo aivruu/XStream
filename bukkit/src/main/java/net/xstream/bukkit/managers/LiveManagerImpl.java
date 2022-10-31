@@ -51,7 +51,7 @@ public final class LiveManagerImpl implements LiveManager {
 	public void announce(@NotNull UUID uuid) {
 		Objects.requireNonNull(uuid, "The uuid is null.");
 		
-		Bukkit.getScheduler().runTaskTimerAsynchronously(XStream.instance(), () -> {
+		final BukkitTask task = Bukkit.getScheduler().runTaskTimerAsynchronously(XStream.instance(), () -> {
 			Bukkit.getOnlinePlayers().forEach(player -> {
 				player.sendMessage(TextUtils.parse(this.configurationHandler
 					 .text(File.CUSTOM,
@@ -63,6 +63,8 @@ public final class LiveManagerImpl implements LiveManager {
 		}, 1L, this.configurationHandler.number(File.CONFIG,
 			 "config.announces-delay",
 			 null));
+		
+		this.tasks.put(uuid, task);
 	}
 	
 	/**
