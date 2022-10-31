@@ -1,6 +1,6 @@
-package net.xstream.utils;
+package net.xstream.bungee.utils;
 
-import net.xstream.XStream;
+import net.xstream.bungee.XStream;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;

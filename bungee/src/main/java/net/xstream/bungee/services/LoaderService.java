@@ -1,7 +1,7 @@
-package net.xstream.services;
+package net.xstream.bungee.services;
 
-import net.xstream.Loader;
-import net.xstream.XStream;
+import net.xstream.bungee.Loader;
+import net.xstream.bungee.XStream;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

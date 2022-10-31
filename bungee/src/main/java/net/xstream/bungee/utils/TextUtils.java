@@ -1,4 +1,4 @@
-package net.xstream.utils;
+package net.xstream.bungee.utils;
 
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;

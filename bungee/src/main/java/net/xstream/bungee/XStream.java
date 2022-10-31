@@ -1,7 +1,7 @@
-package net.xstream;
+package net.xstream.bungee;
 
+import net.xstream.bungee.services.LoaderService;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.xstream.services.LoaderService;
 import org.jetbrains.annotations.NotNull;
 
 public final class XStream extends Plugin {

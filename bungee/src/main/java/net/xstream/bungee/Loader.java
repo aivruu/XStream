@@ -1,4 +1,4 @@
-package net.xstream;
+package net.xstream.bungee;
 
 import net.xconfig.bungee.config.BungeeConfigurationHandler;
 import net.xconfig.bungee.config.BungeeConfigurationModel;
