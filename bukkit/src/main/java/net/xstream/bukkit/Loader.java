@@ -4,6 +4,9 @@ import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.bukkit.config.BukkitConfigurationModel;
 import net.xconfig.services.ConfigurationService;
 import net.xstream.api.AbstractLoader;
+import net.xstream.bukkit.commands.MainCommand;
+import net.xstream.bukkit.commands.completers.MainCommandCompleter;
+import net.xstream.bukkit.services.LoaderService;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -59,6 +62,12 @@ public final class Loader extends AbstractLoader {
 			 "messages.yml");
 		this.configurationManager.load("config.yml", "messages.yml");
 		this.configurationHandler = ConfigurationService.bukkitHandler(this.configurationManager);
+		
+		LoaderService.commandLoader(this.plugin)
+			 .command("xstream")
+			 .executor(new MainCommand(this.configurationHandler))
+			 .completer(new MainCommandCompleter())
+			 .register();
 	}
 	
 	@Override
