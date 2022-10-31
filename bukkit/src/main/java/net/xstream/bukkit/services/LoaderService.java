@@ -2,6 +2,7 @@ package net.xstream.bukkit.services;
 
 import net.xstream.bukkit.Loader;
 import net.xstream.bukkit.XStream;
+import net.xstream.bukkit.loaders.CommandLoader;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,5 +23,16 @@ public interface LoaderService {
 	@Contract ("_ -> new")
 	static @NotNull Loader loader(@NotNull XStream plugin) {
 		return new Loader(plugin);
+	}
+	
+	/**
+	 * Returns a new instance of CommandLoader.Builder object.
+	 *
+	 * @param plugin The XStream instance.
+	 * @return A CommandLoader.Builder object.
+	 */
+	@Contract (value = "_ -> new", pure = true)
+	static CommandLoader.@NotNull Builder commandLoader(@NotNull XStream plugin) {
+		return new CommandLoader.Builder(plugin);
 	}
 }
