@@ -2,6 +2,10 @@ config:
   # Plugin Messages Prefix
   prefix: "&6[XStream]"
 
+  # Announces Delay Time.
+  # In ticks. 20 Ticks -> 1 second.
+  announces-delay: 100
+
   sounds:
     # Sounds ID's
     no-perm: ENTITY_ITEM_BREAK
