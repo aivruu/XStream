@@ -9,6 +9,7 @@ messages:
     - "&7 - &a/xs reload &fReloads the files."
     - "&7 - &a/live &fStream manager."
 
+  reload-all: "<prefix> &eAll Files Reloaded! &fThe files has been reloaded successful."
   reload-config: "<prefix> &aConfiguration Reloaded! &fThe file has been reloaded successful."
   reload-messages: "<prefix> &aMessages Reloaded! &fThe file has been reloaded successful."
 
