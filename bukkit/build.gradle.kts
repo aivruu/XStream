@@ -31,7 +31,7 @@ dependencies {
 
 bukkit {
 	name = rootProject.name
-	main = "$directory.XStream"
+	main = "$directory.bukkit.XStream"
 	authors = listOf("InitSync")
 	
 	apiVersion = "1.13"
@@ -64,7 +64,7 @@ bukkit {
 
 bungee {
 	name = rootProject.name
-	main = "$directory.XStream"
+	main = "$directory.bungee.XStream"
 	author = "InitSync"
 	
 	version = release
