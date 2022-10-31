@@ -46,13 +46,14 @@ public final class MainCommand implements CommandExecutor {
 		 @NotNull String label,
 		 @NotNull String[] args
 	) {
+		final String version = XStream.instance().release;
 		final String prefix = this.configurationHandler.text(File.CONFIG, "config.prefix", null);
 		
 		if (sender instanceof ConsoleCommandSender) {
 			if (args.length == 0) {
 				sender.sendMessage(TextUtils.parse(prefix + " &fExecutes the &e/xs help &fcommand to "
 					 + "view the commands."));
-				sender.sendMessage(TextUtils.parse(prefix + "&fDeveloped by &aInitSync &7- &b" + XStream.instance().release));
+				sender.sendMessage(TextUtils.parse(prefix + " &fDeveloped by &aInitSync &7- &b" + version));
 				return false;
 			}
 			
@@ -69,7 +70,7 @@ public final class MainCommand implements CommandExecutor {
 						 .textList(File.CUSTOM,
 								"messages.help",
 								"messages.yml")
-						 .forEach(message -> sender.sendMessage(TextUtils.parse(message)));
+						 .forEach(message -> sender.sendMessage(TextUtils.parse(message.replace("<release>", version))));
 					break;
 				case "reload":
 					if (args.length == 1) {
@@ -135,7 +136,7 @@ public final class MainCommand implements CommandExecutor {
 			if (args.length == 0) {
 				player.sendMessage(TextUtils.parse(prefix + " &fExecutes the &e/xs help &fcommand to "
 					 + "view the commands."));
-				player.sendMessage(TextUtils.parse(prefix + "&fDeveloped by &aInitSync &7- &b" + XStream.instance().release));
+				player.sendMessage(TextUtils.parse(prefix + " &fDeveloped by &aInitSync &7- &b" + XStream.instance().release));
 				return false;
 			}
 			
@@ -153,7 +154,7 @@ public final class MainCommand implements CommandExecutor {
 							 .textList(File.CUSTOM,
 									"messages.help",
 									"messages.yml")
-							 .forEach(message -> player.sendMessage(TextUtils.parse(message)));
+							 .forEach(message -> player.sendMessage(TextUtils.parse(message.replace("<release>", version))));
 					} else {
 						player.playSound(player.getLocation(),
 							 this.permSound,
