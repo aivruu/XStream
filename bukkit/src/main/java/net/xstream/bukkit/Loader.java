@@ -1,4 +1,4 @@
-package net.xstream;
+package net.xstream.bukkit;
 
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.bukkit.config.BukkitConfigurationModel;

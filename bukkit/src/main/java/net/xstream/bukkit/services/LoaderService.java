@@ -1,7 +1,7 @@
-package net.xstream.services;
+package net.xstream.bukkit.services;
 
-import net.xstream.Loader;
-import net.xstream.XStream;
+import net.xstream.bukkit.Loader;
+import net.xstream.bukkit.XStream;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

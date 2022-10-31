@@ -1,8 +1,8 @@
-package net.xstream.utils;
+package net.xstream.bukkit.utils;
 
 import com.cryptomorin.xseries.messages.ActionBar;
 import com.cryptomorin.xseries.messages.Titles;
-import net.xstream.XStream;
+import net.xstream.bukkit.XStream;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

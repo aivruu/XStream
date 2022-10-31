@@ -1,4 +1,4 @@
-package net.xstream.utils;
+package net.xstream.bukkit.utils;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;

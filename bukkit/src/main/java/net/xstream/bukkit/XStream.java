@@ -1,6 +1,6 @@
-package net.xstream;
+package net.xstream.bukkit;
 
-import net.xstream.services.LoaderService;
+import net.xstream.bukkit.services.LoaderService;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,6 +1,6 @@
-package net.xstream.utils;
+package net.xstream.bukkit.utils;
 
-import net.xstream.XStream;
+import net.xstream.bukkit.XStream;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
