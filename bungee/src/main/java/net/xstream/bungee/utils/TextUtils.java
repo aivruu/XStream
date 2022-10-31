@@ -1,8 +1,13 @@
 package net.xstream.bungee.utils;
 
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.xstream.bungee.XStream;
+import org.apache.commons.lang.Validate;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,6 +67,39 @@ public final class TextUtils {
 		}
 		
 		return BUILDER.toString();
+	}
+	
+	/**
+	 * Sends a title to connected player.
+	 *
+	 * @param player ProxiedPlayer object.
+	 * @param title Title message.
+	 * @param subtitle Subtitle message.
+	 * @param fadeIn In coming time.
+	 * @param stay Staying time.
+	 * @param fadeOut Outing time.
+	 */
+	public static void showTitle(
+		 @NotNull ProxiedPlayer player,
+		 @NotNull String title,
+		 @NotNull String subtitle,
+		 int fadeIn,
+		 int stay,
+		 int fadeOut
+	) {
+		Objects.requireNonNull(player, "The player is null.");
+		Validate.notEmpty(title, "The title message is empty.");
+		Validate.notEmpty(subtitle, "The subtitle message is empty.");
+		
+		XStream.instance()
+			 .getProxy()
+			 .createTitle()
+			 .title(TextComponent.fromLegacyText(parse(title)))
+			 .subTitle(TextComponent.fromLegacyText(parse(subtitle)))
+			 .fadeIn(fadeIn)
+			 .stay(stay)
+			 .fadeOut(fadeOut)
+			 .send(player);
 	}
 }
 
