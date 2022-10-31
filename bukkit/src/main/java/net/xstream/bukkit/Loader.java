@@ -4,9 +4,12 @@ import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.bukkit.config.BukkitConfigurationModel;
 import net.xconfig.services.ConfigurationService;
 import net.xstream.api.AbstractLoader;
+import net.xstream.api.managers.LiveManager;
+import net.xstream.bukkit.commands.LiveCommand;
 import net.xstream.bukkit.commands.MainCommand;
 import net.xstream.bukkit.commands.completers.MainCommandCompleter;
 import net.xstream.bukkit.services.LoaderService;
+import net.xstream.bukkit.services.ManagerService;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -24,6 +27,7 @@ public final class Loader extends AbstractLoader {
 	
 	private BukkitConfigurationModel configurationManager;
 	private BukkitConfigurationHandler configurationHandler;
+	private LiveManager liveManager;
 	
 	public Loader(@NotNull XStream plugin) {
 		this.plugin = Objects.requireNonNull(plugin, "The XStream instance is null.");
@@ -54,6 +58,18 @@ public final class Loader extends AbstractLoader {
 		return this.configurationHandler;
 	}
 	
+	/**
+	 * Returns the LiveManager object.
+	 *
+	 * @return A LiveManager object.
+	 */
+	public @NotNull LiveManager liveManager() {
+		if (this.liveManager == null) {
+			throw new IllegalStateException("Cannot access to LiveManager object.");
+		}
+		return this.liveManager;
+	}
+	
 	@Override
 	public void enable() {
 		this.configurationManager = ConfigurationService.bukkitManager(this.plugin);
@@ -63,10 +79,15 @@ public final class Loader extends AbstractLoader {
 		this.configurationManager.load("config.yml", "messages.yml");
 		this.configurationHandler = ConfigurationService.bukkitHandler(this.configurationManager);
 		
+		this.liveManager = ManagerService.liveManager(this.configurationHandler);
+		
 		LoaderService.commandLoader(this.plugin)
 			 .command("xstream")
 			 .executor(new MainCommand(this.configurationHandler))
 			 .completer(new MainCommandCompleter())
+			 .register()
+			 .command("live")
+			 .executor(new LiveCommand(this.configurationHandler, this.liveManager))
 			 .register();
 	}
 	
