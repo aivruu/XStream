@@ -18,11 +18,11 @@ import java.util.regex.Pattern;
  * @version 1.0.0
  * @since 1.0.0
  */
-public final class TextUtils {
+public final class Utils {
 	private static final Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F0-9]{6}}");
 	private static final StringBuilder BUILDER = new StringBuilder();
 	
-	private TextUtils() {}
+	private Utils() {}
 	
 	/**
 	 * Colorize the string passed as parameter, if the server version number is minor than 16 (-1.16),
