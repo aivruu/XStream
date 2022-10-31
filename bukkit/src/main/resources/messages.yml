@@ -1,4 +1,5 @@
 messages:
+  no-console: "<prefix> &cThat command can't be executed in console!"
   no-perm: "<prefix> &cYou don't have permission for it!"
   no-command: "<prefix> &cThat command has not been added yet!"
   no-file: "<prefix> &cThe file to reload doesn't exist!"
@@ -13,9 +14,10 @@ messages:
   reload-config: "<prefix> &aConfiguration Reloaded! &fThe file has been reloaded successful."
   reload-messages: "<prefix> &aMessages Reloaded! &fThe file has been reloaded successful."
 
-  live-usage: "<prefix> &fSub-commands:<br>&7 - &emenu &fOpens the menu.<br>&7 - &eurl &fSets the stream link."
+  live-usage: "<prefix> &fSub-commands:<br>&7 - &emenu &fOpens the menu.<br>&7 - &eurl &fSets the stream link.<br>&7 - &eoffline &fEnds the stream."
   live-menu-open: "<prefix> &fHas opened the &cLive Manager Menu"
   live-url-null: "<prefix> &cThe stream URL has not been set! Set it using &a/live url <link>"
+  live-url-set: "<prefix> &a&lSTREAM LINK PREPARED! &eHas set successful the stream link."
   live-announce: "<prefix> &aStream announced successfull!"
   live-offline: "<prefix> &eYou has ended the &eStream&c!"
 
