@@ -4,6 +4,10 @@ import com.cryptomorin.xseries.XSound;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.File;
 import net.xstream.api.managers.LiveManager;
+import net.xstream.api.spigot.events.LiveMenuOpenEvent;
+import net.xstream.api.spigot.events.OfflineStreamEvent;
+import net.xstream.api.spigot.events.StreamPrepareEvent;
+import net.xstream.bukkit.XStream;
 import net.xstream.bukkit.enums.Permission;
 import net.xstream.bukkit.utils.TextUtils;
 import org.bukkit.Bukkit;
@@ -12,12 +16,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.UUID;
 
 public final class LiveCommand implements CommandExecutor {
+	private final PluginManager pluginManager;
 	private final BukkitConfigurationHandler configurationHandler;
 	private final LiveManager liveManager;
 	
@@ -25,6 +31,9 @@ public final class LiveCommand implements CommandExecutor {
 		 @NotNull BukkitConfigurationHandler configurationHandler,
 		 @NotNull LiveManager liveManager
 	) {
+		this.pluginManager = XStream.instance()
+			 .getServer()
+			 .getPluginManager();
 		this.configurationHandler = Objects.requireNonNull(configurationHandler,
 			 "The BukkitConfigurationHandler object is null.");
 		this.liveManager = Objects.requireNonNull(liveManager, "The LiveManager object is null.");
@@ -82,19 +91,23 @@ public final class LiveCommand implements CommandExecutor {
 							break;
 						}
 						
-						this.liveManager.offline(playerId);
-						player.sendMessage(TextUtils.parse(this.configurationHandler
-							 .text(File.CUSTOM,
-								  "messages.live-offline",
-								  "messages.yml")
-							 .replace("<prefix>", prefix)));
-						Bukkit.getOnlinePlayers().forEach(connected -> {
-							connected.sendMessage(TextUtils.parse(this.configurationHandler
+						final OfflineStreamEvent offlineStreamEvent = new OfflineStreamEvent(player);
+						this.pluginManager.callEvent(offlineStreamEvent);
+						if (!offlineStreamEvent.isCancelled()) {
+							this.liveManager.offline(playerId);
+							player.sendMessage(TextUtils.parse(this.configurationHandler
 								 .text(File.CUSTOM,
-										"messages.announce-offline",
+										"messages.live-offline",
 										"messages.yml")
-								 .replace("<player_name>", prefix)));
-						});
+								 .replace("<prefix>", prefix)));
+							Bukkit.getOnlinePlayers().forEach(connected -> {
+								connected.sendMessage(TextUtils.parse(this.configurationHandler
+									 .text(File.CUSTOM,
+											"messages.announce-offline",
+											"messages.yml")
+									 .replace("<player_name>", prefix)));
+							});
+						}
 						break;
 					case "url":
 						if (args.length == 1) {
@@ -106,20 +119,28 @@ public final class LiveCommand implements CommandExecutor {
 							return false;
 						}
 						
-						this.liveManager.prepare(playerId, args[1]);
-						player.sendMessage(TextUtils.parse(this.configurationHandler
-							 .text(File.CUSTOM,
-								  "messages.live-url-set",
-								  "messages.yml")
-							 .replace("<prefix>", prefix)));
+						final StreamPrepareEvent streamPrepareEvent = new StreamPrepareEvent(args[1]);
+						this.pluginManager.callEvent(streamPrepareEvent);
+						if (!streamPrepareEvent.isCancelled()) {
+							this.liveManager.prepare(playerId, args[1]);
+							player.sendMessage(TextUtils.parse(this.configurationHandler
+								 .text(File.CUSTOM,
+										"messages.live-url-set",
+										"messages.yml")
+								 .replace("<prefix>", prefix)));
+						}
 						break;
 					case "menu":
-						this.liveManager.openLiveManager(player);
-						player.sendMessage(TextUtils.parse(this.configurationHandler
-							 .text(File.CUSTOM,
-									"messages.live-menu-open",
-									"messages.yml")
-							 .replace("<prefix>", prefix)));
+						final LiveMenuOpenEvent menuOpenEvent = new LiveMenuOpenEvent(player);
+						this.pluginManager.callEvent(menuOpenEvent);
+						if (!menuOpenEvent.isCancelled()) {
+							this.liveManager.openLiveManager(player);
+							player.sendMessage(TextUtils.parse(this.configurationHandler
+								 .text(File.CUSTOM,
+										"messages.live-menu-open",
+										"messages.yml")
+								 .replace("<prefix>", prefix)));
+						}
 						break;
 				}
 			} else {
