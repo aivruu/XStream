@@ -3,7 +3,7 @@ package net.xstream.bukkit.commands;
 import com.cryptomorin.xseries.XSound;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.File;
-import net.xstream.api.managers.LiveManager;
+import net.xstream.api.managers.BukkitLiveManager;
 import net.xstream.api.spigot.events.LiveMenuOpenEvent;
 import net.xstream.api.spigot.events.OfflineStreamEvent;
 import net.xstream.api.spigot.events.StreamPrepareEvent;
@@ -25,18 +25,18 @@ import java.util.UUID;
 public final class LiveCommand implements CommandExecutor {
 	private final PluginManager pluginManager;
 	private final BukkitConfigurationHandler configurationHandler;
-	private final LiveManager liveManager;
+	private final BukkitLiveManager liveManager;
 	
 	public LiveCommand(
 		 @NotNull BukkitConfigurationHandler configurationHandler,
-		 @NotNull LiveManager liveManager
+		 @NotNull BukkitLiveManager liveManager
 	) {
 		this.pluginManager = XStream.instance()
 			 .getServer()
 			 .getPluginManager();
 		this.configurationHandler = Objects.requireNonNull(configurationHandler,
 			 "The BukkitConfigurationHandler object is null.");
-		this.liveManager = Objects.requireNonNull(liveManager, "The LiveManager object is null.");
+		this.liveManager = Objects.requireNonNull(liveManager, "The BukkitLiveManager object is null.");
 	}
 	
 	@Override
