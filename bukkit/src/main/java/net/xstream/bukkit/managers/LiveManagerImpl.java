@@ -1,6 +1,7 @@
 package net.xstream.bukkit.managers;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XSound;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.File;
 import net.xstream.api.managers.LiveManager;
@@ -168,6 +169,16 @@ public final class LiveManagerImpl implements LiveManager {
 						   null)
 					  ) {
 						  Bukkit.getOnlinePlayers().forEach(connected -> {
+								connected.playSound(connected.getLocation(),
+									 XSound.valueOf(this.configurationHandler.text(File.CONFIG,
+										  "config.sounds.live",
+										  null)).parseSound(),
+									 this.configurationHandler.number(File.CONFIG,
+										  "config.sounds.volume-level",
+										  null),
+									 this.configurationHandler.number(File.CONFIG,
+											"config.sounds.volume-level",
+											null));
 							  Utils.showTitle(connected,
 								   this.configurationHandler.text(File.CUSTOM,
 										  "messages.announce-title",
