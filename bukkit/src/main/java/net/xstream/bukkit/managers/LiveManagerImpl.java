@@ -4,7 +4,8 @@ import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XSound;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.File;
-import net.xstream.api.managers.LiveManager;
+import net.xstream.api.managers.BukkitLiveManager;
+import net.xstream.api.spigot.events.StreamAnnounceEvent;
 import net.xstream.bukkit.XStream;
 import net.xstream.bukkit.services.BuilderService;
 import net.xstream.bukkit.utils.TextUtils;
@@ -23,7 +24,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public final class LiveManagerImpl implements LiveManager {
+public final class LiveManagerImpl implements BukkitLiveManager {
 	private final Map<UUID, String> streams;
 	private final Map<UUID, BukkitTask> tasks;
 	private final BukkitConfigurationHandler configurationHandler;
@@ -164,41 +165,45 @@ public final class LiveManagerImpl implements LiveManager {
 							return false;
 						}
 					
-					  if (this.configurationHandler.condition(File.CONFIG,
-						   "config.titles.allow",
-						   null)
-					  ) {
-						  Bukkit.getOnlinePlayers().forEach(connected -> {
-								connected.playSound(connected.getLocation(),
-									 XSound.valueOf(this.configurationHandler.text(File.CONFIG,
-										  "config.sounds.live",
-										  null)).parseSound(),
-									 this.configurationHandler.number(File.CONFIG,
-										  "config.sounds.volume-level",
-										  null),
-									 this.configurationHandler.number(File.CONFIG,
-											"config.sounds.volume-level",
-											null));
-							  Utils.showTitle(connected,
-								   this.configurationHandler.text(File.CUSTOM,
-										  "messages.announce-title",
-										  "messages.yml"),
-								   this.configurationHandler.text(File.CUSTOM,
-										  "messages.announce-subtitle",
-										  "messages.yml"),
-								   this.configurationHandler.number(File.CONFIG,
-										  "config.titles.fade-in",
-										  null),
-								   this.configurationHandler.number(File.CONFIG,
-										  "config.titles.stay",
-										  null),
-								   this.configurationHandler.number(File.CONFIG,
-										  "config.titles.fade-out",
-										  null));
-						  });
-					  }
-					
-					  this.announce(playerId);
+					  final StreamAnnounceEvent streamAnnounceEvent = new StreamAnnounceEvent();
+						Bukkit.getPluginManager().callEvent(streamAnnounceEvent);
+						if (!streamAnnounceEvent.isCancelled()) {
+							if (this.configurationHandler.condition(File.CONFIG,
+								 "config.titles.allow",
+								 null)
+							) {
+								Bukkit.getOnlinePlayers().forEach(connected -> {
+									connected.playSound(connected.getLocation(),
+										 XSound.valueOf(this.configurationHandler.text(File.CONFIG,
+												"config.sounds.live",
+												null)).parseSound(),
+										 this.configurationHandler.number(File.CONFIG,
+												"config.sounds.volume-level",
+												null),
+										 this.configurationHandler.number(File.CONFIG,
+												"config.sounds.volume-level",
+												null));
+									Utils.showTitle(connected,
+										 this.configurationHandler.text(File.CUSTOM,
+												"messages.announce-title",
+												"messages.yml"),
+										 this.configurationHandler.text(File.CUSTOM,
+												"messages.announce-subtitle",
+												"messages.yml"),
+										 this.configurationHandler.number(File.CONFIG,
+												"config.titles.fade-in",
+												null),
+										 this.configurationHandler.number(File.CONFIG,
+												"config.titles.stay",
+												null),
+										 this.configurationHandler.number(File.CONFIG,
+												"config.titles.fade-out",
+												null));
+								});
+							}
+							
+							this.announce(playerId);
+						}
 						return false;
 				  })
 				  .build())
