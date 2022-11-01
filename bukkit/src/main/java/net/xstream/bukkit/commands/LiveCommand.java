@@ -82,7 +82,7 @@ public final class LiveCommand implements CommandExecutor {
 							 .replace("<prefix>", prefix)));
 						break;
 					case "offline":
-						if (this.liveManager.isStreaming(playerId)) {
+						if (!this.liveManager.isStreaming(playerId)) {
 							player.sendMessage(TextUtils.parse(this.configurationHandler
 								 .text(File.CUSTOM,
 										"messages.live-not-started",
