@@ -3,6 +3,7 @@ package net.xstream.bukkit;
 import net.xstream.bukkit.services.LoaderService;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import team.unnamed.gui.menu.v1_8_R3.MenuInventoryWrapperImpl;
 
 /**
  * Main class.
@@ -17,6 +18,7 @@ public final class XStream extends JavaPlugin {
 	public final String release = this.getDescription().getVersion();
 	
 	private Loader loader;
+	private MenuInventoryWrapperImpl wrapper;
 	
 	public XStream() {
 		instance = this;
