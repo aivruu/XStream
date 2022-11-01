@@ -1,3 +1,3 @@
 
 rootProject.name = "XStream"
-include("api", "bukkit", "bungee")
+include("bungee", "bukkit", "api")
