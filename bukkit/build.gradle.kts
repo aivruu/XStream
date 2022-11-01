@@ -14,6 +14,7 @@ val description = "Simple way to announce your streams globally!"
 repositories {
 	maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 	maven("https://jitpack.io/")
+	maven("https://repo.unnamed.team/repository/unnamed-releases/")
 	mavenCentral()
 }
 
@@ -27,6 +28,7 @@ dependencies {
 	implementation("commons-lang:commons-lang:2.6")
 	implementation("com.github.InitSync:XConfig:1.0.2")
 	implementation("com.github.cryptomorin:XSeries:9.1.0")
+	implementation("team.unnamed:gui-menu-api:3.3.2")
 }
 
 bukkit {
@@ -80,6 +82,7 @@ tasks {
 		relocate("org.apache.commons", "$libsDirectory.commons")
 		relocate("net.xconfig", "$libsDirectory.xconfig")
 		relocate("com.cryptomorin.xseries", "$libsDirectory.xseries")
+		relocate("team.unnamed.gui", "$libsDirectory.unnamed")
 	}
 	
 	withType<JavaCompile> {
