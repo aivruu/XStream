@@ -39,7 +39,7 @@ config:
     # Insert Live button.
     announce-live:
       # Material type.
-      material: GREEN_CLAY
+      material: GREEN_TERRACOTTA
 
       # Slot position.
       slot: 10
@@ -73,7 +73,7 @@ config:
     # Close button.
     close-menu:
       # Material type.
-      material: RED_CLAY
+      material: RED_TERRACOTTA
 
       # Slot position.
       slot: 16
