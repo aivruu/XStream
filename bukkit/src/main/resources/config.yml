@@ -33,11 +33,11 @@ config:
     # Title for the Live Manager Menu.
     menu-title: "&7Manager -> Live"
 
-    # Size for the menu.
-    size: 27
+    # Rows amount for the menu.
+    rows: 3
 
     # Insert Live button.
-    insert-live:
+    announce-live:
       # Material type.
       material: GREEN_CLAY
 
@@ -45,12 +45,11 @@ config:
       slot: 10
 
       # Display Name.
-      display-name: "&8&l> &eInsert Stream URL"
+      display-name: "&8&l> &eAnnounce Stream "
 
       # Item Lore.
       lore: |-
-        &7To click the item, you must be insert the &6Stream Link
-        &7into the chat.
+        &7To click the item, you announces the stream to all!
 
     # Usage button.
     usage:
@@ -85,7 +84,3 @@ config:
       # Item Lore.
       lore: |-
         &7Do you want close the &cLive Manager&7?
-
-    content:
-      # If you want to add more custom items to the inventory, add it here.
-      pane-1:
