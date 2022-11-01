@@ -65,7 +65,7 @@ public final class LiveManagerImpl implements LiveManager {
 	public boolean isStreaming(@NotNull UUID uuid) {
 		Objects.requireNonNull(uuid, "The uuid is null.");
 		
-		return this.streams.containsKey(uuid);
+		return this.streams.containsKey(uuid) && this.tasks.containsKey(uuid);
 	}
 	
 	/**
