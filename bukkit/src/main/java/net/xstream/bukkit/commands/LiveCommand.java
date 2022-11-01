@@ -73,18 +73,27 @@ public final class LiveCommand implements CommandExecutor {
 							 .replace("<prefix>", prefix)));
 						break;
 					case "offline":
+						if (this.liveManager.isStreaming(playerId)) {
+							player.sendMessage(TextUtils.parse(this.configurationHandler
+								 .text(File.CUSTOM,
+										"messages.live-not-started",
+										"messages.yml")
+								 .replace("<prefix>", prefix)));
+							break;
+						}
+						
 						this.liveManager.offline(playerId);
 						player.sendMessage(TextUtils.parse(this.configurationHandler
 							 .text(File.CUSTOM,
-									"messages.live-offline",
+								  "messages.live-offline",
 								  "messages.yml")
 							 .replace("<prefix>", prefix)));
 						Bukkit.getOnlinePlayers().forEach(connected -> {
 							connected.sendMessage(TextUtils.parse(this.configurationHandler
 								 .text(File.CUSTOM,
-									  "messages.announce-offline",
-									  "messages.yml")
-								 .replace("<player_name>", player.getName())));
+										"messages.announce-offline",
+										"messages.yml")
+								 .replace("<player_name>", prefix)));
 						});
 						break;
 					case "url":
