@@ -3,7 +3,7 @@
 # 🛠️ | Import
 If you're using a dependency manager such as Maven or Gradle. Or just import the library to BuildPath of your project.
 
-To get the jar, either download it from [GitHub](https://github.com/InitSync/XConfig/releases) or [Spigot](https://www.spigotmc.org/resources/xconfig.105977/). Or just [Build it locally](https://github.com/InitSync/XStream#--build)
+To get the jar, either download it from [GitHub](https://github.com/InitSync/XStream/releases) or [Spigot](https://www.spigotmc.org/resources/xconfig.105977/). Or just [Build it locally](https://github.com/InitSync/XStream#--build)
 
 Gradle (Kotlin DSL)
 ```Gradle
