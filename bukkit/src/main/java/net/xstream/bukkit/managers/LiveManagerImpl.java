@@ -43,7 +43,8 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 						 null)))
 			 .amount(1)
 			 .displayName(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.display-name", null))
-			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
+			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.lore",
+				  null))
 			 .build();
 		this.usageItem = BuilderService.fromMaterial(XMaterial.valueOf(
 					this.configurationHandler.text(File.CONFIG,
@@ -51,7 +52,7 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 						 null)))
 			 .amount(1)
 			 .displayName(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
-			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
+			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.usage.lore", null))
 			 .build();
 		this.closeItem = BuilderService.fromMaterial(XMaterial.valueOf(
 					this.configurationHandler.text(File.CONFIG,
