@@ -29,6 +29,7 @@ dependencies {
 	implementation("com.github.InitSync:XConfig:1.0.2")
 	implementation("com.github.cryptomorin:XSeries:9.1.0")
 	implementation("team.unnamed:gui-menu-api:3.3.2")
+	implementation("team.unnamed:gui-menu-adapt-v1_8_R3:3.3.2")
 }
 
 bukkit {
@@ -82,7 +83,7 @@ tasks {
 		relocate("org.apache.commons", "$libsDirectory.commons")
 		relocate("net.xconfig", "$libsDirectory.xconfig")
 		relocate("com.cryptomorin.xseries", "$libsDirectory.xseries")
-		relocate("team.unnamed.gui", "$libsDirectory.unnamed")
+		relocate("team.unnamed", "$libsDirectory.unnamed")
 	}
 	
 	withType<JavaCompile> {
