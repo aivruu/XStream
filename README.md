@@ -32,7 +32,6 @@ Maven
     <groupId>com.github.InitSync</groupId>
     <artifactId>XStream</artifactId>
     <version>1.0.0</version>
-    <scope>compile</scope>
   </dependency>
 </dependencies>
 ```
