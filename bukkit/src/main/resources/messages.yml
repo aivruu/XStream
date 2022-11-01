@@ -21,6 +21,7 @@ messages:
   live-announce: "<prefix> &aStream announced successfull!"
   live-already-announced: "<prefix> &eThe stream is already being announced!"
   live-offline: "<prefix> &eYou has ended the &eStream&c!"
+  live-missing-link: "<prefix> &eInsert the link of LiveStream!"
   live-not-started: "<prefix> &cThe LiveStream not start yet, you can end it."
 
   announce-title: "&6&l<player_name> &aIs in live!"
