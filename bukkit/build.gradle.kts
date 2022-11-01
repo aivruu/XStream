@@ -83,7 +83,6 @@ tasks {
 		relocate("org.apache.commons", "$libsDirectory.commons")
 		relocate("net.xconfig", "$libsDirectory.xconfig")
 		relocate("com.cryptomorin.xseries", "$libsDirectory.xseries")
-		relocate("team.unnamed", "$libsDirectory.unnamed")
 	}
 	
 	withType<JavaCompile> {
