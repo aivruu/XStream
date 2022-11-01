@@ -1,15 +1,21 @@
 package net.xstream.bukkit.managers;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.File;
 import net.xstream.api.managers.LiveManager;
 import net.xstream.bukkit.XStream;
+import net.xstream.bukkit.services.BuilderService;
 import net.xstream.bukkit.utils.TextUtils;
+import net.xstream.bukkit.utils.Utils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
+import team.unnamed.gui.menu.item.ItemClickable;
+import team.unnamed.gui.menu.type.MenuInventory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,12 +26,46 @@ public final class LiveManagerImpl implements LiveManager {
 	private final Map<UUID, String> streams;
 	private final Map<UUID, BukkitTask> tasks;
 	private final BukkitConfigurationHandler configurationHandler;
+	private final ItemStack announceItem;
+	private final ItemStack usageItem;
+	private final ItemStack closeItem;
 	
 	public LiveManagerImpl(@NotNull BukkitConfigurationHandler configurationHandler) {
 		this.streams = new HashMap<>();
 		this.tasks = new HashMap<>();
 		this.configurationHandler = Objects.requireNonNull(configurationHandler,
 			 "The BukkitConfigurationHandler is null.");
+		this.announceItem = BuilderService.fromMaterial(XMaterial.valueOf(
+					this.configurationHandler.text(File.CONFIG,
+						 "config.live.announce-live.material",
+						 null)))
+			 .amount(1)
+			 .displayName(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.display-name", null))
+			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
+			 .build();
+		this.usageItem = BuilderService.fromMaterial(XMaterial.valueOf(
+					this.configurationHandler.text(File.CONFIG,
+						 "config.live.usage.material",
+						 null)))
+			 .amount(1)
+			 .displayName(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
+			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
+			 .build();
+		this.closeItem = BuilderService.fromMaterial(XMaterial.valueOf(
+					this.configurationHandler.text(File.CONFIG,
+						 "config.live.close-menu.material",
+						 null)))
+			 .amount(1)
+			 .displayName(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.display-name", null))
+			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.lore", null))
+			 .build();
+	}
+	
+	@Override
+	public boolean isStreaming(@NotNull UUID uuid) {
+		Objects.requireNonNull(uuid, "The uuid is null.");
+		
+		return this.streams.containsKey(uuid);
 	}
 	
 	/**
@@ -88,6 +128,73 @@ public final class LiveManagerImpl implements LiveManager {
 	 */
 	@Override
 	public void openLiveManager(@NotNull Player player) {
-	
+		Objects.requireNonNull(player, "The player is null.");
+		
+		final UUID playerId = player.getUniqueId();
+		
+		player.openInventory(MenuInventory.newBuilder(TextUtils.parse(
+			 this.configurationHandler.text(File.CONFIG,
+				  "config.live.menu-title",
+				  null)),
+			 this.configurationHandler.number(File.CONFIG,
+				  "config.live.rows",
+				  null))
+			 .item(ItemClickable.builder(this.configurationHandler.number(File.CONFIG,
+				  "config.live.announce-live.slot",
+				  null))
+				  .item(this.announceItem)
+				  .action(inventory -> {
+					  if (!this.streams.containsKey(playerId)) {
+						  player.sendMessage(TextUtils.parse(this.configurationHandler
+							   .text(File.CUSTOM,
+								    "messages.live-not-started",
+								    "messages.yml")
+							   .replace("<prefix>", this.configurationHandler.text(File.CONFIG, "config.prefix", null))));
+							return false;
+					  }
+					
+					  if (this.configurationHandler.condition(File.CONFIG,
+						   "config.titles.allow",
+						   null)
+					  ) {
+						  Bukkit.getOnlinePlayers().forEach(connected -> {
+							  Utils.showTitle(connected,
+								   this.configurationHandler.text(File.CUSTOM,
+										  "messages.announce-title",
+										  "messages.yml"),
+								   this.configurationHandler.text(File.CUSTOM,
+										  "messages.announce-subtitle",
+										  "messages.yml"),
+								   this.configurationHandler.number(File.CONFIG,
+										  "config.titles.fade-in",
+										  null),
+								   this.configurationHandler.number(File.CONFIG,
+										  "config.titles.stay",
+										  null),
+								   this.configurationHandler.number(File.CONFIG,
+										  "config.titles.fade-out",
+										  null));
+						  });
+					  }
+					
+					  this.announce(playerId);
+						return false;
+				  })
+				  .build())
+			 .item(ItemClickable.builder(this.configurationHandler.number(File.CONFIG,
+				  "config.live.usage.slot",
+				  null))
+				  .item(this.usageItem)
+				  .build())
+			 .item(ItemClickable.builder(this.configurationHandler.number(File.CONFIG,
+				  "config.live.close-menu.slot",
+				  null))
+				  .item(this.closeItem)
+				  .action(inventory -> {
+						player.closeInventory();
+						return false;
+				  })
+				  .build())
+			 .build());
 	}
 }
