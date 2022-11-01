@@ -71,6 +71,10 @@ public final class CommandLoader {
 			command.setExecutor(this.executor);
 			
 			if (this.completer != null) command.setTabCompleter(this.completer);
+			
+			this.commandName = null;
+			this.executor = null;
+			this.completer = null;
 			return this;
 		}
 	}
