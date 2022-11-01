@@ -4,10 +4,9 @@ import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.bukkit.config.BukkitConfigurationModel;
 import net.xconfig.services.ConfigurationService;
 import net.xstream.api.AbstractLoader;
-import net.xstream.api.managers.LiveManager;
+import net.xstream.api.managers.BukkitLiveManager;
 import net.xstream.bukkit.commands.LiveCommand;
 import net.xstream.bukkit.commands.MainCommand;
-import net.xstream.bukkit.commands.completers.MainCommandCompleter;
 import net.xstream.bukkit.services.LoaderService;
 import net.xstream.bukkit.services.ManagerService;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +26,7 @@ public final class Loader extends AbstractLoader {
 	
 	private BukkitConfigurationModel configurationManager;
 	private BukkitConfigurationHandler configurationHandler;
-	private LiveManager liveManager;
+	private BukkitLiveManager liveManager;
 	
 	public Loader(@NotNull XStream plugin) {
 		this.plugin = Objects.requireNonNull(plugin, "The XStream instance is null.");
@@ -59,13 +58,13 @@ public final class Loader extends AbstractLoader {
 	}
 	
 	/**
-	 * Returns the LiveManager object.
+	 * Returns the BukkitLiveManager object.
 	 *
-	 * @return A LiveManager object.
+	 * @return A BukkitLiveManager object.
 	 */
-	public @NotNull LiveManager liveManager() {
+	public @NotNull BukkitLiveManager liveManager() {
 		if (this.liveManager == null) {
-			throw new IllegalStateException("Cannot access to LiveManager object.");
+			throw new IllegalStateException("Cannot access to BukkitLiveManager object.");
 		}
 		return this.liveManager;
 	}
@@ -79,12 +78,11 @@ public final class Loader extends AbstractLoader {
 		this.configurationManager.load("config.yml", "messages.yml");
 		this.configurationHandler = ConfigurationService.bukkitHandler(this.configurationManager);
 		
-		this.liveManager = ManagerService.liveManager(this.configurationHandler);
+		this.liveManager = ManagerService.bukkitLiveManager(this.configurationHandler);
 		
 		LoaderService.commandLoader(this.plugin)
 			 .command("xstream")
 			 .executor(new MainCommand(this.configurationHandler))
-			 .completer(new MainCommandCompleter())
 			 .register()
 			 .command("live")
 			 .executor(new LiveCommand(this.configurationHandler, this.liveManager))
