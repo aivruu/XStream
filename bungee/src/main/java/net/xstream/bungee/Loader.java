@@ -4,6 +4,10 @@ import net.xconfig.bungee.config.BungeeConfigurationHandler;
 import net.xconfig.bungee.config.BungeeConfigurationModel;
 import net.xconfig.services.ConfigurationService;
 import net.xstream.api.AbstractLoader;
+import net.xstream.api.managers.BungeeLiveManager;
+import net.xstream.bungee.commands.LiveCommand;
+import net.xstream.bungee.services.LoaderService;
+import net.xstream.bungee.services.ManagerService;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -13,6 +17,7 @@ public final class Loader extends AbstractLoader {
 	
 	private BungeeConfigurationModel configurationManager;
 	private BungeeConfigurationHandler configurationHandler;
+	private BungeeLiveManager liveManager;
 	
 	public Loader(@NotNull XStream plugin) {
 		this.plugin = Objects.requireNonNull(plugin, "The XStream instance is null.");
@@ -43,16 +48,34 @@ public final class Loader extends AbstractLoader {
 		return this.configurationHandler;
 	}
 	
+	/**
+	 * Returns the BungeeLiveManager object.
+	 *
+	 * @return A BungeeLiveManager object.
+	 */
+	public @NotNull BungeeLiveManager liveManager() {
+		if (this.liveManager == null) {
+			throw new IllegalStateException("Cannot access to BungeeLiveManager object.");
+		}
+		return this.liveManager;
+	}
+	
 	@Override
 	public void enable() {
 		this.configurationManager = ConfigurationService.bungeeManager(this.plugin);
 		this.configurationManager.create("",
-			 "bungee_config.yml",
+			 "config.yml",
 			 "messages.yml");
 		this.configurationManager.load(
-			 "bungee_config.yml",
+			 "config.yml",
 			 "messages.yml");
 		this.configurationHandler = ConfigurationService.bungeeHandler(this.configurationManager);
+		
+		this.liveManager = ManagerService.bungeeLiveManager(this.plugin, this.configurationHandler);
+		
+		LoaderService.commandLoader(this.plugin)
+			 .command(new LiveCommand(this.plugin, this.configurationHandler, this.liveManager))
+			 .register();
 	}
 	
 	@Override
