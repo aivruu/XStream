@@ -13,7 +13,7 @@ public interface ManagerService {
 	 * @return A LiveManagerImpl instance.
 	 */
 	@Contract ("_ -> new")
-	static @NotNull LiveManagerImpl liveManager(@NotNull BukkitConfigurationHandler configurationHandler) {
+	static @NotNull LiveManagerImpl bukkitLiveManager(@NotNull BukkitConfigurationHandler configurationHandler) {
 		return new LiveManagerImpl(configurationHandler);
 	}
 }
