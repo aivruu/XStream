@@ -9,7 +9,11 @@ import net.xstream.bukkit.commands.LiveCommand;
 import net.xstream.bukkit.commands.MainCommand;
 import net.xstream.bukkit.services.LoaderService;
 import net.xstream.bukkit.services.ManagerService;
+import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
+import team.unnamed.gui.menu.listener.InventoryClickListener;
+import team.unnamed.gui.menu.listener.InventoryCloseListener;
+import team.unnamed.gui.menu.listener.InventoryOpenListener;
 
 import java.util.Objects;
 
@@ -23,6 +27,7 @@ import java.util.Objects;
  */
 public final class Loader extends AbstractLoader {
 	private final XStream plugin;
+	private final PluginManager pluginManager;
 	
 	private BukkitConfigurationModel configurationManager;
 	private BukkitConfigurationHandler configurationHandler;
@@ -30,6 +35,9 @@ public final class Loader extends AbstractLoader {
 	
 	public Loader(@NotNull XStream plugin) {
 		this.plugin = Objects.requireNonNull(plugin, "The XStream instance is null.");
+		this.pluginManager = this.plugin
+			 .getServer()
+			 .getPluginManager();
 	}
 	
 	/**
@@ -79,6 +87,10 @@ public final class Loader extends AbstractLoader {
 		this.configurationHandler = ConfigurationService.bukkitHandler(this.configurationManager);
 		
 		this.liveManager = ManagerService.bukkitLiveManager(this.configurationHandler);
+		
+		this.pluginManager.registerEvents(new InventoryClickListener(), this.plugin);
+		this.pluginManager.registerEvents(new InventoryCloseListener(this.plugin), this.plugin);
+		this.pluginManager.registerEvents(new InventoryOpenListener(), this.plugin);
 		
 		LoaderService.commandLoader(this.plugin)
 			 .command("xstream")
