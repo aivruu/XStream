@@ -7,6 +7,13 @@ import java.util.UUID;
 
 public interface LiveManager {
 	/**
+	 * Checks if the streamer is active yet.
+	 *
+	 * @param uuid UUID of streamer.
+	 */
+	boolean isStreaming(@NotNull UUID uuid);
+	
+	/**
 	 * Sets the link of stream.
 	 *
 	 * @param uuid UUID of streamer.
@@ -17,7 +24,7 @@ public interface LiveManager {
 	/**
 	 * Start a task to announce the stream.
 	 *
-	 * @param link Stream link.
+	 * @param uuid UUID of streamer.
 	 */
 	void announce(@NotNull UUID uuid);
 	
