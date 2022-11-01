@@ -116,6 +116,7 @@ public final class LiveManagerImpl implements LiveManager {
 	public void offline(@NotNull UUID uuid) {
 		Objects.requireNonNull(uuid, "The uuid is null.");
 		
+		this.streams.remove(uuid);
 		this.tasks
 			 .remove(uuid)
 			 .cancel();
@@ -152,6 +153,15 @@ public final class LiveManagerImpl implements LiveManager {
 							   .replace("<prefix>", this.configurationHandler.text(File.CONFIG, "config.prefix", null))));
 							return false;
 					  }
+						
+						if (this.tasks.containsKey(playerId)) {
+							player.sendMessage(TextUtils.parse(this.configurationHandler
+								 .text(File.CUSTOM,
+									  "messages.live-already-announced",
+									  "messages.yml")
+								 .replace("<prefix>", this.configurationHandler.text(File.CONFIG, "config.prefix", null))));
+							return false;
+						}
 					
 					  if (this.configurationHandler.condition(File.CONFIG,
 						   "config.titles.allow",
