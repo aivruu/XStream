@@ -1,8 +1,8 @@
 package net.xstream.api.bungee.events;
 
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Cancellable;
 import net.md_5.bungee.api.plugin.Event;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -17,15 +17,15 @@ import java.util.Objects;
  * @see net.md_5.bungee.api.plugin.Cancellable
  */
 public final class OfflineStreamEvent extends Event implements Cancellable {
-	private final Player player;
+	private final ProxiedPlayer player;
 	
 	private boolean cancelled;
 	
-	public OfflineStreamEvent(@NotNull Player player) {
+	public OfflineStreamEvent(@NotNull ProxiedPlayer player) {
 		this.player = Objects.requireNonNull(player, "The player is null.");
 	}
 	
-	public @NotNull Player player() {
+	public @NotNull ProxiedPlayer player() {
 		return this.player;
 	}
 	
