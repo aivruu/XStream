@@ -113,7 +113,7 @@ public final class LiveCommand implements CommandExecutor {
 						if (args.length == 1) {
 							player.sendMessage(TextUtils.parse(this.configurationHandler
 								 .text(File.CUSTOM,
-										"messages.live-usage",
+										"messages.live-missing-link",
 										"messages.yml")
 								 .replace("<prefix>", prefix)));
 							return false;
