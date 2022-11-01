@@ -1,5 +1,4 @@
-# ⚙️ | XStream
-XStream is a plugin that allows to your Streamers announce their streams/lives globally to all the server, constantly from time to time of asynchronous way to avoid loss performance. Very customizable with multiple functions and checks to avoid all bypass type or errors.
+**XStream** is a plugin that allows to your Streamers announce their streams/lives globally to all the server, constantly from time to time of asynchronous way to avoid loss performance. Very customizable with multiple functions and checks to avoid all bypass type or errors.
 
 # 🛠️ | Import
 If you're using a dependency manager such as Maven or Gradle. Or just import the library to BuildPath of your project.
