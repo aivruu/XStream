@@ -1,5 +1,5 @@
 # [!] Note for BungeeCord usage.
-# The only configuration sections that you can modify are 'prefix', 'announces-delay' and 'titles', per the moment I working
+# The only configuration sections that you can modify are 'prefix', 'announces-delay' and 'titles', per the moment I'm working
 # to separate this and make it more ordered to avoid confusions.
 config:
   # Plugin Messages Prefix
@@ -41,12 +41,6 @@ config:
 
     # Insert Live button.
     announce-live:
-      # Material type.
-      material: GREEN_DYE
-
-      # Slot position.
-      slot: 10
-
       # Display Name.
       display-name: "&8&l> &eAnnounce Stream "
 
@@ -56,12 +50,6 @@ config:
 
     # Usage button.
     usage:
-      # Material type.
-      material: WRITABLE_BOOK
-
-      # Slot position.
-      slot: 13
-
       # Display Name.
       display-name: "&8&l> &bUsage"
 
@@ -75,26 +63,15 @@ config:
 
     # Offline Button.
     offline:
-      # Material type.
-      material: RED_DYE
-
-      # Slot position.
-      slot: 16
-
       # Display Name.
       display-name: "&8&l> &cFinalize Stream"
 
       # Item Lore.
       lore: |-
         &7If you want end the stream click this button.
+
     # Close button.
     close-menu:
-      # Material type.
-      material: BARRIER
-
-      # Slot position.
-      slot: 31
-
       # Display Name.
       display-name: "&8&l> &cClose Live Manager"
 
