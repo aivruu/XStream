@@ -37,7 +37,7 @@ config:
     menu-title: "&7Manager -> Live"
 
     # Rows amount for the menu.
-    rows: 3
+    rows: 4
 
     # Insert Live button.
     announce-live:
@@ -55,7 +55,7 @@ config:
 
       # Item Lore.
       lore: |-
-        &7To send the live press the &aAnnounce Live &7button.
+        &7To send the live press the &aAnnounce Stream &7button.
         &8[&c!&8] &fYou need before insert the stream link.
         &l
         &7If you select the &cClose Menu &7button, will be close
