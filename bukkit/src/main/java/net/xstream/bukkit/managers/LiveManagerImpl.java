@@ -96,12 +96,15 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 		
 		final BukkitTask task = Bukkit.getScheduler().runTaskTimerAsynchronously(XStream.instance(), () -> {
 			Bukkit.getOnlinePlayers().forEach(player -> {
-				player.sendMessage(TextUtils.parse(this.configurationHandler
-					 .text(File.CUSTOM,
-							"messages.announce-message",
-							"messages.yml")
-					 .replace("<player_name>", Bukkit.getPlayer(uuid).getName())
-					 .replace("<stream_url>", this.streams.get(uuid))));
+				this.configurationHandler
+					.textList(File.CUSTOM,
+						  "messages.announce-message",
+						  "messages.yml")
+					.forEach(msg -> {
+						player.sendMessage(TextUtils.parse(
+							msg.replace("<player_name>", Bukkit.getPlayer(uuid).getName()
+								   .replace("<stream_url>", this.streams.get(uuid)));
+					});
 			});
 		}, 1L, this.configurationHandler.number(File.CONFIG,
 			 "config.announces-delay",
