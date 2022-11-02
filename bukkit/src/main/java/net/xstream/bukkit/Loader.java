@@ -86,6 +86,8 @@ public final class Loader extends AbstractLoader {
 		this.configurationManager.load("config.yml", "messages.yml");
 		this.configurationHandler = ConfigurationService.bukkitHandler(this.configurationManager);
 		
+		new Metrics(this.plugin, 16769);
+		
 		this.liveManager = ManagerService.bukkitLiveManager(this.configurationHandler);
 		
 		this.pluginManager.registerEvents(new InventoryClickListener(), this.plugin);
