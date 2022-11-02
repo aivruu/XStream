@@ -151,10 +151,10 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 					  if (!this.streams.containsKey(playerId)) {
 						  player.sendMessage(TextUtils.parse(this.configurationHandler
 							   .text(File.CUSTOM,
-								    "messages.live-not-started",
+								    "messages.live-url-null",
 								    "messages.yml")
 							   .replace("<prefix>", this.configurationHandler.text(File.CONFIG, "config.prefix", null))));
-							return false;
+							return true;
 					  }
 						
 						if (this.tasks.containsKey(playerId)) {
@@ -163,7 +163,7 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 									  "messages.live-already-announced",
 									  "messages.yml")
 								 .replace("<prefix>", this.configurationHandler.text(File.CONFIG, "config.prefix", null))));
-							return false;
+							return true;
 						}
 					
 					  final StreamAnnounceEvent streamAnnounceEvent = new StreamAnnounceEvent();
@@ -205,7 +205,7 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 							
 							this.announce(playerId);
 						}
-						return false;
+						return true;
 				  })
 				  .build())
 			 .item(ItemClickable.builder(this.configurationHandler.number(File.CONFIG,
