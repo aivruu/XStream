@@ -20,13 +20,13 @@ messages:
   live-url-set: "<prefix> &a&lSTREAM LINK PREPARED! &eHas set successful the stream link."
   live-announce: "<prefix> &aStream announced successfull!"
   live-already-announced: "<prefix> &eThe stream is already being announced!"
-  live-offline: "<prefix> &eYou has ended the &eStream&c!"
-  live-missing-link: "<prefix> &eInsert the link of LiveStream!"
-  live-not-started: "<prefix> &cThe LiveStream not start yet, you can end it."
+  live-offline: "<prefix> &eYou has ended the stream!"
+  live-missing-link: "<prefix> &eInsert the link of stream!"
+  live-not-started: "<prefix> &cThe stream not start yet, you can end it."
 
-  announce-title: "&6&l<player_name> &aIs in live!"
+  announce-title: "&c[Live] &6<player_name> &aIs in live!"
   announce-subtitle: "&e&lJOIN NOW TO STREAM!"
   announce-offline: "&c[Ended Live] &e&l<player_name> &fHas ended her stream!"
   announce-message:
-    - "&6[Live] &e&l<player_name> &fIs in live at: &c&n<stream_url>"
+    - "&6[Live] &e&l<player_name> &fIs in live at: &c<stream_url>"
     - "&a&lJOIN NOW DOING CLICK TO LINK!"
