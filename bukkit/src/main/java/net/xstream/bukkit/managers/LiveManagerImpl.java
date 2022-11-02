@@ -28,40 +28,12 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 	private final Map<UUID, String> streams;
 	private final Map<UUID, BukkitTask> tasks;
 	private final BukkitConfigurationHandler configurationHandler;
-	private final ItemStack announceItem;
-	private final ItemStack usageItem;
-	private final ItemStack closeItem;
 	
 	public LiveManagerImpl(@NotNull BukkitConfigurationHandler configurationHandler) {
 		this.streams = new HashMap<>();
 		this.tasks = new HashMap<>();
 		this.configurationHandler = Objects.requireNonNull(configurationHandler,
 			 "The BukkitConfigurationHandler is null.");
-		this.announceItem = BuilderService.fromMaterial(XMaterial.valueOf(
-					this.configurationHandler.text(File.CONFIG,
-						 "config.live.announce-live.material",
-						 null)))
-			 .amount(1)
-			 .displayName(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.display-name", null))
-			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.lore",
-				  null))
-			 .build();
-		this.usageItem = BuilderService.fromMaterial(XMaterial.valueOf(
-					this.configurationHandler.text(File.CONFIG,
-						 "config.live.usage.material",
-						 null)))
-			 .amount(1)
-			 .displayName(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
-			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.usage.lore", null))
-			 .build();
-		this.closeItem = BuilderService.fromMaterial(XMaterial.valueOf(
-					this.configurationHandler.text(File.CONFIG,
-						 "config.live.close-menu.material",
-						 null)))
-			 .amount(1)
-			 .displayName(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.display-name", null))
-			 .lore(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.lore", null))
-			 .build();
 	}
 	
 	@Override
@@ -103,7 +75,7 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 					.forEach(msg -> {
 						player.sendMessage(TextUtils.parse(
 							msg.replace("<player_name>", Bukkit.getPlayer(uuid).getName()
-								   .replace("<stream_url>", this.streams.get(uuid)));
+								   .replace("<stream_url>", this.streams.get(uuid)))));
 					});
 			});
 		}, 1L, this.configurationHandler.number(File.CONFIG,
@@ -146,10 +118,12 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 			 this.configurationHandler.number(File.CONFIG,
 				  "config.live.rows",
 				  null))
-			 .item(ItemClickable.builder(this.configurationHandler.number(File.CONFIG,
-				  "config.live.announce-live.slot",
-				  null))
-				  .item(this.announceItem)
+			 .item(ItemClickable.builder(10)
+				  .item(BuilderService.fromMaterial(XMaterial.GREEN_DYE)
+					   .amount(1)
+					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.display-name", null))
+					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.lore", null))
+					   .build())
 				  .action(inventory -> {
 					  if (!this.streams.containsKey(playerId)) {
 						  player.sendMessage(TextUtils.parse(this.configurationHandler
@@ -188,12 +162,16 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 												"config.sounds.volume-level",
 												null));
 									Utils.showTitle(connected,
-										 this.configurationHandler.text(File.CUSTOM,
-												"messages.announce-title",
-												"messages.yml"),
-										 this.configurationHandler.text(File.CUSTOM,
+										 this.configurationHandler
+											  .text(File.CUSTOM,
+												   "messages.announce-title",
+												   "messages.yml")
+											  .replace("<player_name>", player.getName()),
+										 this.configurationHandler
+											  .text(File.CUSTOM,
 												"messages.announce-subtitle",
-												"messages.yml"),
+												"messages.yml")
+											  .replace("<player_name>", player.getName()),
 										 this.configurationHandler.number(File.CONFIG,
 												"config.titles.fade-in",
 												null),
@@ -211,20 +189,63 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 						return true;
 				  })
 				  .build())
-			 .item(ItemClickable.builder(this.configurationHandler.number(File.CONFIG,
-				  "config.live.usage.slot",
-				  null))
-				  .item(this.usageItem)
-				  .build())
-			 .item(ItemClickable.builder(this.configurationHandler.number(File.CONFIG,
-				  "config.live.close-menu.slot",
-				  null))
-				  .item(this.closeItem)
+			 .item(ItemClickable.builder(13)
+				  .item(BuilderService.fromMaterial(XMaterial.WRITABLE_BOOK)
+					   .amount(1)
+					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
+					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.usage.lore", null))
+					   .build())
 				  .action(inventory -> {
 						player.closeInventory();
-						return false;
+						return true;
 				  })
 				  .build())
+			 .item(ItemClickable.builder(22)
+				  .item(BuilderService.fromMaterial(XMaterial.RED_DYE)
+					   .amount(1)
+					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.offline.display-name", null))
+					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.offline.lore", null))
+					   .build())
+				  .action(inventory -> {
+						player.performCommand("/stream");
+						return true;
+				  })
+				  .build())
+			 .item(ItemClickable.builder(31)
+				  .item(BuilderService.fromMaterial(XMaterial.BARRIER)
+					   .amount(1)
+					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.display-name", null))
+					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.lore", null))
+					   .build())
+				  .action(inventory -> {
+					  player.closeInventory();
+					  return true;
+				  })
+				  .build())
+			 .item(ItemClickable.builder(27)
+				  .item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+				  .build())
+			 .item(ItemClickable.builder(28)
+					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.build())
+			 .item(ItemClickable.builder(29)
+					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.build())
+			 .item(ItemClickable.builder(30)
+					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.build())
+			 .item(ItemClickable.builder(32)
+					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.build())
+			 .item(ItemClickable.builder(33)
+					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.build())
+			 .item(ItemClickable.builder(34)
+					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.build())
+			 .item(ItemClickable.builder(35)
+					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.build())
 			 .build());
 	}
 }
