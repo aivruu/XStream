@@ -42,7 +42,7 @@ config:
     # Insert Live button.
     announce-live:
       # Material type.
-      material: GREEN_TERRACOTTA
+      material: GREEN_DYE
 
       # Slot position.
       slot: 10
@@ -57,7 +57,7 @@ config:
     # Usage button.
     usage:
       # Material type.
-      material: PAPER
+      material: WRITABLE_BOOK
 
       # Slot position.
       slot: 13
@@ -67,19 +67,33 @@ config:
 
       # Item Lore.
       lore: |-
-        &7If you press the &aInsert Stream &7button, you will be asked
-        &7insert the &dLive link&7.
+        &7To send the live press the &aAnnounce Live &7button.
+        &8[&c!&8] &fYou need before insert the stream link.
         &l
         &7If you select the &cClose Menu &7button, will be close
         &7the &cLive Manager &7menu.
 
-    # Close button.
-    close-menu:
+    # Offline Button.
+    offline:
       # Material type.
-      material: RED_TERRACOTTA
+      material: RED_DYE
 
       # Slot position.
       slot: 16
+
+      # Display Name.
+      display-name: "&8&l> &cFinalize Stream"
+
+      # Item Lore.
+      lore: |-
+        &7If you want end the stream click this button.
+    # Close button.
+    close-menu:
+      # Material type.
+      material: BARRIER
+
+      # Slot position.
+      slot: 31
 
       # Display Name.
       display-name: "&8&l> &cClose Live Manager"
