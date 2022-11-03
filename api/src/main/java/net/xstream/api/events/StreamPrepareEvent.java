@@ -1,4 +1,4 @@
-package net.xstream.api.spigot.events;
+package net.xstream.api.events;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.event.Cancellable;
