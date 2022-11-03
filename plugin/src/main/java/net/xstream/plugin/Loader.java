@@ -7,15 +7,12 @@ import net.xstream.api.AbstractLoader;
 import net.xstream.api.managers.LiveManager;
 import net.xstream.plugin.commands.LiveCommand;
 import net.xstream.plugin.commands.MainCommand;
+import net.xstream.plugin.listeners.ManagerClickListener;
 import net.xstream.plugin.services.LoaderService;
 import net.xstream.plugin.services.ManagerService;
 import net.xstream.plugin.utils.LogPrinter;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
-import team.unnamed.gui.menu.listener.InventoryClickListener;
-import team.unnamed.gui.menu.listener.InventoryCloseListener;
-import team.unnamed.gui.menu.listener.InventoryOpenListener;
 
 import java.util.Objects;
 
@@ -29,7 +26,6 @@ import java.util.Objects;
  */
 public final class Loader extends AbstractLoader {
 	private final XStream plugin;
-	private final PluginManager pluginManager;
 	
 	private BukkitConfigurationModel configurationManager;
 	private BukkitConfigurationHandler configurationHandler;
@@ -37,9 +33,6 @@ public final class Loader extends AbstractLoader {
 	
 	public Loader(@NotNull XStream plugin) {
 		this.plugin = Objects.requireNonNull(plugin, "The XStream instance is null.");
-		this.pluginManager = this.plugin
-			 .getServer()
-			 .getPluginManager();
 		this.configurationManager = ConfigurationService.bukkitManager(this.plugin);
 		this.configurationHandler = ConfigurationService.bukkitHandler(this.configurationManager);
 		this.liveManager = ManagerService.liveManager(this.configurationHandler);
@@ -91,9 +84,10 @@ public final class Loader extends AbstractLoader {
 			 "messages.yml");
 		this.configurationManager.load("config.yml", "messages.yml");
 		
-		this.pluginManager.registerEvents(new InventoryClickListener(), this.plugin);
-		this.pluginManager.registerEvents(new InventoryCloseListener(this.plugin), this.plugin);
-		this.pluginManager.registerEvents(new InventoryOpenListener(), this.plugin);
+		this.plugin
+			 .getServer()
+			 .getPluginManager()
+			 .registerEvents(new ManagerClickListener(this.liveManager, this.configurationHandler), this.plugin);
 		
 		LoaderService.commandLoader(this.plugin)
 			 .command("xstream")
