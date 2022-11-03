@@ -119,7 +119,7 @@ public final class LiveManagerImpl implements LiveManager {
 				  "config.live.rows",
 				  null))
 			 .item(ItemClickable.builder(10)
-				  .item(BuilderService.fromMaterial("LIME_CONCRETE")
+				  .item(BuilderService.fromMaterial("GREEN_TERRACOTTA")
 					   .amount(1)
 					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.display-name", null))
 					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.lore", null))
@@ -201,7 +201,7 @@ public final class LiveManagerImpl implements LiveManager {
 				  })
 				  .build())
 			 .item(ItemClickable.builder(16)
-				  .item(BuilderService.fromMaterial("RED_CONCRETE")
+				  .item(BuilderService.fromMaterial("RED_TERRACOTTA")
 					   .amount(1)
 					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.offline.display-name", null))
 					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.offline.lore", null))
