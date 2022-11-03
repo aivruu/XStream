@@ -119,6 +119,15 @@ public final class LiveCommand implements CommandExecutor {
 							return false;
 						}
 						
+						if (!TextUtils.isValidUrl(args[1])) {
+							player.sendMessage(TextUtils.parse(this.configurationHandler
+								 .text(File.CUSTOM,
+										"messages.live-format",
+										"messages.yml")
+								 .replace("<prefix>", prefix)));
+							return false;
+						}
+						
 						final StreamPrepareEvent streamPrepareEvent = new StreamPrepareEvent(args[1]);
 						this.pluginManager.callEvent(streamPrepareEvent);
 						if (!streamPrepareEvent.isCancelled()) {
