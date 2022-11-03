@@ -119,7 +119,7 @@ public final class LiveManagerImpl implements LiveManager {
 				  "config.live.rows",
 				  null))
 			 .item(ItemClickable.builder(10)
-				  .item(BuilderService.fromMaterial(XMaterial.LIME_CONCRETE)
+				  .item(BuilderService.fromMaterial("LIME_CONCRETE")
 					   .amount(1)
 					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.display-name", null))
 					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.lore", null))
@@ -190,7 +190,7 @@ public final class LiveManagerImpl implements LiveManager {
 				  })
 				  .build())
 			 .item(ItemClickable.builder(13)
-				  .item(BuilderService.fromMaterial(XMaterial.WRITABLE_BOOK)
+				  .item(BuilderService.fromMaterial("WRITABLE_BOOK")
 					   .amount(1)
 					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
 					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.usage.lore", null))
@@ -201,7 +201,7 @@ public final class LiveManagerImpl implements LiveManager {
 				  })
 				  .build())
 			 .item(ItemClickable.builder(16)
-				  .item(BuilderService.fromMaterial(XMaterial.RED_CONCRETE)
+				  .item(BuilderService.fromMaterial("RED_CONCRETE")
 					   .amount(1)
 					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.offline.display-name", null))
 					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.offline.lore", null))
@@ -212,7 +212,7 @@ public final class LiveManagerImpl implements LiveManager {
 				  })
 				  .build())
 			 .item(ItemClickable.builder(31)
-				  .item(BuilderService.fromMaterial(XMaterial.BARRIER)
+				  .item(BuilderService.fromMaterial("BARRIER")
 					   .amount(1)
 					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.display-name", null))
 					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.lore", null))
@@ -223,56 +223,72 @@ public final class LiveManagerImpl implements LiveManager {
 				  })
 				  .build())
 			 .item(ItemClickable.builder(27)
-				  .item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
+				  .item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
+					   .get()
+					   .parseMaterial(), 1))
 				  .action(inventory -> {
 					  player.closeInventory();
 					  return true;
 				  })
 				  .build())
 			 .item(ItemClickable.builder(28)
-					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
+						 .get()
+						 .parseMaterial(), 1))
 				  .action(inventory -> {
 					  player.closeInventory();
 					  return true;
 				  })
 					.build())
 			 .item(ItemClickable.builder(29)
-					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
+						 .get()
+						 .parseMaterial(), 1))
 				  .action(inventory -> {
 					  player.closeInventory();
 					  return true;
 				  })
 					.build())
 			 .item(ItemClickable.builder(30)
-					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
+						 .get()
+						 .parseMaterial(), 1))
 				  .action(inventory -> {
 					  player.closeInventory();
 					  return true;
 				  })
 					.build())
 			 .item(ItemClickable.builder(32)
-					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
+						 .get()
+						 .parseMaterial(), 1))
 				  .action(inventory -> {
 					  player.closeInventory();
 					  return true;
 				  })
 					.build())
 			 .item(ItemClickable.builder(33)
-					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
+						 .get()
+						 .parseMaterial(), 1))
 				  .action(inventory -> {
 					  player.closeInventory();
 					  return true;
 				  })
 					.build())
 			 .item(ItemClickable.builder(34)
-					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
+						 .get()
+						 .parseMaterial(), 1))
 				  .action(inventory -> {
 					  player.closeInventory();
 					  return true;
 				  })
 					.build())
 			 .item(ItemClickable.builder(35)
-					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
+						 .get()
+						 .parseMaterial(), 1))
 				  .action(inventory -> {
 					  player.closeInventory();
 					  return true;
