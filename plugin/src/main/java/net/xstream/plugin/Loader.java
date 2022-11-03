@@ -103,7 +103,7 @@ public final class Loader extends AbstractLoader {
 			 .executor(new LiveCommand(this.configurationHandler, this.liveManager))
 			 .register();
 		
-		LogPrinter.info("Started plugin successfully in '" + (System.currentTimeMillis() - startTime) + "'.",
+		LogPrinter.info("Started plugin successfully in '" + (System.currentTimeMillis() - startTime) + "'ms.",
 			 "Running with [" + Bukkit.getVersion() + "-" + Bukkit.getBukkitVersion() + "]",
 			 "Developed by InitSync | v" + this.plugin.release);
 	}
