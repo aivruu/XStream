@@ -1,11 +1,19 @@
 package net.xstream.api.managers;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.UUID;
 
 public interface LiveManager {
+	@NotNull Map<UUID, String> streams();
+	
+	@NotNull Map<UUID, BukkitTask> tasks();
+	
 	/**
 	 * Checks if the streamer is active yet.
 	 *

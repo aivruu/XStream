@@ -1,23 +1,16 @@
 package net.xstream.plugin.managers;
 
-import com.cryptomorin.xseries.XMaterial;
-import com.cryptomorin.xseries.XSound;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.File;
 import net.xstream.api.managers.LiveManager;
-import net.xstream.api.events.StreamAnnounceEvent;
 import net.xstream.plugin.XStream;
 import net.xstream.plugin.services.BuilderService;
 import net.xstream.plugin.utils.TextUtils;
-import net.xstream.plugin.utils.Utils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
-import team.unnamed.gui.menu.item.ItemClickable;
-import team.unnamed.gui.menu.type.MenuInventory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +27,16 @@ public final class LiveManagerImpl implements LiveManager {
 		this.tasks = new HashMap<>();
 		this.configurationHandler = Objects.requireNonNull(configurationHandler,
 			 "The BukkitConfigurationHandler is null.");
+	}
+	
+	@Override
+	public @NotNull Map<UUID, String> streams() {
+		return this.streams;
+	}
+	
+	@Override
+	public @NotNull Map<UUID, BukkitTask> tasks() {
+		return this.tasks;
 	}
 	
 	@Override
@@ -73,9 +76,9 @@ public final class LiveManagerImpl implements LiveManager {
 						  "messages.announce-message",
 						  "messages.yml")
 					.forEach(msg -> {
-						player.sendMessage(TextUtils.parse(
-							msg.replace("<player_name>", Bukkit.getPlayer(uuid).getName()
-								   .replace("<stream_url>", this.streams.get(uuid)))));
+						player.sendMessage(TextUtils.parse(msg.replace("<player_name>",
+							 Bukkit.getPlayer(uuid).getName())
+							 .replace("<stream_url>", this.streams.get(uuid))));
 					});
 			});
 		}, 1L, this.configurationHandler.number(File.CONFIG,
@@ -108,192 +111,17 @@ public final class LiveManagerImpl implements LiveManager {
 	@Override
 	public void openLiveManager(@NotNull Player player) {
 		Objects.requireNonNull(player, "The player is null.");
-		
-		final UUID playerId = player.getUniqueId();
-		
-		player.openInventory(MenuInventory.newBuilder(TextUtils.parse(
-			 this.configurationHandler.text(File.CONFIG,
+
+		player.openInventory(BuilderService.newGui(XStream.instance())
+			 .title(this.configurationHandler.text(File.CONFIG,
 				  "config.live.menu-title",
-				  null)),
-			 this.configurationHandler.number(File.CONFIG,
-				  "config.live.rows",
 				  null))
-			 .item(ItemClickable.builder(10)
-				  .item(BuilderService.fromMaterial("GREEN_TERRACOTTA")
-					   .amount(1)
-					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.display-name", null))
-					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.lore", null))
-					   .build())
-				  .action(inventory -> {
-					  if (!this.streams.containsKey(playerId)) {
-						  player.sendMessage(TextUtils.parse(this.configurationHandler
-							   .text(File.CUSTOM,
-								    "messages.live-url-null",
-								    "messages.yml")
-							   .replace("<prefix>", this.configurationHandler.text(File.CONFIG, "config.prefix", null))));
-							return true;
-					  }
-						
-						if (this.tasks.containsKey(playerId)) {
-							player.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-									  "messages.live-already-announced",
-									  "messages.yml")
-								 .replace("<prefix>", this.configurationHandler.text(File.CONFIG, "config.prefix", null))));
-							return true;
-						}
-					
-					  final StreamAnnounceEvent streamAnnounceEvent = new StreamAnnounceEvent();
-						Bukkit.getPluginManager().callEvent(streamAnnounceEvent);
-						if (!streamAnnounceEvent.isCancelled()) {
-							if (this.configurationHandler.condition(File.CONFIG,
-								 "config.titles.allow",
-								 null)
-							) {
-								Bukkit.getOnlinePlayers().forEach(connected -> {
-									connected.playSound(connected.getLocation(),
-										 XSound.valueOf(this.configurationHandler.text(File.CONFIG,
-												"config.sounds.live",
-												null)).parseSound(),
-										 this.configurationHandler.number(File.CONFIG,
-												"config.sounds.volume-level",
-												null),
-										 this.configurationHandler.number(File.CONFIG,
-												"config.sounds.volume-level",
-												null));
-									Utils.showTitle(connected,
-										 this.configurationHandler
-											  .text(File.CUSTOM,
-												   "messages.announce-title",
-												   "messages.yml")
-											  .replace("<player_name>", player.getName()),
-										 this.configurationHandler
-											  .text(File.CUSTOM,
-												"messages.announce-subtitle",
-												"messages.yml")
-											  .replace("<player_name>", player.getName()),
-										 this.configurationHandler.number(File.CONFIG,
-												"config.titles.fade-in",
-												null),
-										 this.configurationHandler.number(File.CONFIG,
-												"config.titles.stay",
-												null),
-										 this.configurationHandler.number(File.CONFIG,
-												"config.titles.fade-out",
-												null));
-								});
-							}
-							
-							this.announce(playerId);
-						}
-						return true;
-				  })
-				  .build())
-			 .item(ItemClickable.builder(13)
-				  .item(BuilderService.fromMaterial("WRITABLE_BOOK")
-					   .amount(1)
-					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.usage.display-name", null))
-					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.usage.lore", null))
-					   .build())
-				  .action(inventory -> {
-						player.closeInventory();
-						return true;
-				  })
-				  .build())
-			 .item(ItemClickable.builder(16)
-				  .item(BuilderService.fromMaterial("RED_TERRACOTTA")
-					   .amount(1)
-					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.offline.display-name", null))
-					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.offline.lore", null))
-					   .build())
-				  .action(inventory -> {
-						player.chat("/live offline");
-						return true;
-				  })
-				  .build())
-			 .item(ItemClickable.builder(31)
-				  .item(BuilderService.fromMaterial("BARRIER")
-					   .amount(1)
-					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.display-name", null))
-					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.lore", null))
-					   .build())
-				  .action(inventory -> {
-					  player.closeInventory();
-					  return true;
-				  })
-				  .build())
-			 .item(ItemClickable.builder(27)
-				  .item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
-					   .get()
-					   .parseMaterial(), 1))
-				  .action(inventory -> {
-					  player.closeInventory();
-					  return true;
-				  })
-				  .build())
-			 .item(ItemClickable.builder(28)
-					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
-						 .get()
-						 .parseMaterial(), 1))
-				  .action(inventory -> {
-					  player.closeInventory();
-					  return true;
-				  })
-					.build())
-			 .item(ItemClickable.builder(29)
-					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
-						 .get()
-						 .parseMaterial(), 1))
-				  .action(inventory -> {
-					  player.closeInventory();
-					  return true;
-				  })
-					.build())
-			 .item(ItemClickable.builder(30)
-					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
-						 .get()
-						 .parseMaterial(), 1))
-				  .action(inventory -> {
-					  player.closeInventory();
-					  return true;
-				  })
-					.build())
-			 .item(ItemClickable.builder(32)
-					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
-						 .get()
-						 .parseMaterial(), 1))
-				  .action(inventory -> {
-					  player.closeInventory();
-					  return true;
-				  })
-					.build())
-			 .item(ItemClickable.builder(33)
-					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
-						 .get()
-						 .parseMaterial(), 1))
-				  .action(inventory -> {
-					  player.closeInventory();
-					  return true;
-				  })
-					.build())
-			 .item(ItemClickable.builder(34)
-					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
-						 .get()
-						 .parseMaterial(), 1))
-				  .action(inventory -> {
-					  player.closeInventory();
-					  return true;
-				  })
-					.build())
-			 .item(ItemClickable.builder(35)
-					.item(new ItemStack(XMaterial.matchXMaterial("BLACK_STAINED_GLASS_PANE")
-						 .get()
-						 .parseMaterial(), 1))
-				  .action(inventory -> {
-					  player.closeInventory();
-					  return true;
-				  })
-					.build())
+			 .size(this.configurationHandler.number(File.CONFIG,
+				  "config.live.size",
+				  null))
+			 .configSection(this.configurationHandler.configSection(File.CONFIG,
+				  "config.live.content",
+				  null))
 			 .build());
 	}
 }
