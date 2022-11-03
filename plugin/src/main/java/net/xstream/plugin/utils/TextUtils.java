@@ -1,9 +1,11 @@
 package net.xstream.plugin.utils;
 
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,5 +70,20 @@ public final class TextUtils {
 		}
 		
 		return BUILDER.toString();
+	}
+	
+	/**
+	 * Checks if the text passed as argument is valid url.
+	 *
+	 * @param url The url to check.
+	 * @return A boolean value
+	 */
+	public static boolean isValidUrl(@NotNull String url) {
+		Validate.notEmpty(url, "The url is empty.");
+		
+		try {
+			new URL(url).toURI();
+			return true;
+		} catch (Exception ignored) { return false; }
 	}
 }
