@@ -1,6 +1,3 @@
-# [!] Note for BungeeCord usage.
-# The only configuration sections that you can modify are 'prefix', 'announces-delay' and 'titles', per the moment I'm working
-# to separate this and make it more ordered to avoid confusions.
 config:
   # Plugin Messages Prefix
   prefix: "&6[XStream]"
