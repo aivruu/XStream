@@ -1,7 +1,6 @@
 plugins {
 	id("com.github.johnrengelman.shadow") version("7.1.2")
 	id("net.minecrell.plugin-yml.bukkit") version("0.5.2")
-	id("net.minecrell.plugin-yml.bungee") version("0.5.2")
 	`java-library`
 	`maven-publish`
 }
@@ -22,7 +21,6 @@ dependencies {
 	compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
 	
 	implementation(project(":api"))
-	implementation(project(":bungee"))
 	
 	implementation("org.jetbrains:annotations:23.0.0")
 	implementation("commons-lang:commons-lang:2.6")
@@ -34,7 +32,7 @@ dependencies {
 
 bukkit {
 	name = rootProject.name
-	main = "$directory.bukkit.XStream"
+	main = "$directory.XStream"
 	authors = listOf("InitSync")
 	
 	apiVersion = "1.13"
@@ -63,14 +61,6 @@ bukkit {
 			aliases = listOf("stream", "youtube", "twitch")
 		}
 	}
-}
-
-bungee {
-	name = rootProject.name
-	main = "$directory.bungee.XStream"
-	author = "InitSync"
-	
-	version = release
 }
 
 tasks {
