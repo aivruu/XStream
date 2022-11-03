@@ -34,44 +34,86 @@ config:
     menu-title: "&7Manager -> Live"
 
     # Rows amount for the menu.
-    rows: 4
+    size: 4
 
-    # Insert Live button.
-    announce-live:
-      # Display Name.
-      display-name: "&8&l> &eAnnounce Stream "
+    # GUI Content/Items.
+    # [!] NOTE: Please don't make any change the key-name of announce-live, usage, offline and close-menu.
+    # I'm working to remove this complication.
+    content:
+      announce-live:
+        # Material Type.
+        material: LIME_DYE
 
-      # Item Lore.
-      lore: |-
-        &7To click the item, you announces the stream to all!
+        # Display Name.
+        display-name: "&8&l> &eAnnounce Stream "
 
-    # Usage button.
-    usage:
-      # Display Name.
-      display-name: "&8&l> &bUsage"
-
-      # Item Lore.
-      lore: |-
-        &7To send the live press the &aAnnounce Stream &7button.
-        &8[&c!&8] &fYou need before insert the stream link.
-        &l
-        &7If you select the &cClose Menu &7button, will be close
-        &7the &cLive Manager &7menu.
-
-    # Offline Button.
-    offline:
-      # Display Name.
-      display-name: "&8&l> &cFinalize Stream"
-
-      # Item Lore.
-      lore: |-
-        &7If you want end the stream click this button.
-
-    # Close button.
-    close-menu:
-      # Display Name.
-      display-name: "&8&l> &cClose Live Manager"
-
-      # Item Lore.
-      lore: |-
-        &7Do you want close the &cLive Manager&7?
+        # Item Lore.
+        lore: |-
+          &7To click the item, you announces the stream to all!
+      usage:
+        material: WRITABLE_BOOK
+        display-name: "&8&l> &bUsage"
+        lore: |-
+          &7To send the live press the &aAnnounce Stream &7button.
+          &8[&c!&8] &fYou need before insert the stream link.
+          &l
+          &7If you select the &cClose Menu &7button, will be close
+          &7the &cLive Manager &7menu.
+      offline:
+        material: RED_DYE
+        display-name: "&8&l> &cFinalize Stream"
+        lore: |-
+          &7If you want end the stream click this button.
+      close-menu:
+        material: BARRIER
+        display-name: "&8&l> &cClose Live Manager"
+        lore: |-
+          &7Do you want close the &cLive Manager&7?
+      glass-pane-1:
+        material: BLACK_STAINED_GLASS_PANE
+        slot: 27
+        display-name: "&l"
+        lore: |-
+          &l
+      glass-pane-2:
+        material: BLACK_STAINED_GLASS_PANE
+        slot: 28
+        display-name: "&l"
+        lore: |-
+          &l
+      glass-pane-3:
+        material: BLACK_STAINED_GLASS_PANE
+        slot: 29
+        display-name: "&l"
+        lore: |-
+          &l
+      glass-pane-4:
+        material: BLACK_STAINED_GLASS_PANE
+        slot: 30
+        display-name: "&l"
+        lore: |-
+          &l
+      glass-pane-5:
+        material: BLACK_STAINED_GLASS_PANE
+        slot: 32
+        display-name: "&l"
+        lore: |-
+          &l
+      glass-pane-6:
+        material: BLACK_STAINED_GLASS_PANE
+        slot: 33
+        display-name: "&l"
+        lore: |-
+          &l
+      glass-pane-7:
+        material: BLACK_STAINED_GLASS_PANE
+        slot: 34
+        display-name: "&l"
+        lore: |-
+          &l
+      glass-pane-8:
+        material: BLACK_STAINED_GLASS_PANE
+        slot: 35
+        display-name: "&l"
+        lore: |-
+          &l
