@@ -52,6 +52,8 @@ public final class XStream extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		new Metrics(this, 16769);
+		
 		this.loader.enable();
 	}
 	

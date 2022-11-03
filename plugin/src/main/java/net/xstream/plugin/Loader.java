@@ -9,6 +9,8 @@ import net.xstream.plugin.commands.LiveCommand;
 import net.xstream.plugin.commands.MainCommand;
 import net.xstream.plugin.services.LoaderService;
 import net.xstream.plugin.services.ManagerService;
+import net.xstream.plugin.utils.LogPrinter;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 import team.unnamed.gui.menu.listener.InventoryClickListener;
@@ -38,6 +40,9 @@ public final class Loader extends AbstractLoader {
 		this.pluginManager = this.plugin
 			 .getServer()
 			 .getPluginManager();
+		this.configurationManager = ConfigurationService.bukkitManager(this.plugin);
+		this.configurationHandler = ConfigurationService.bukkitHandler(this.configurationManager);
+		this.liveManager = ManagerService.liveManager(this.configurationHandler);
 	}
 	
 	/**
@@ -79,16 +84,12 @@ public final class Loader extends AbstractLoader {
 	
 	@Override
 	public void enable() {
-		this.configurationManager = ConfigurationService.bukkitManager(this.plugin);
+		final long startTime = System.currentTimeMillis();
+		
 		this.configurationManager.create("",
 			 "config.yml",
 			 "messages.yml");
 		this.configurationManager.load("config.yml", "messages.yml");
-		this.configurationHandler = ConfigurationService.bukkitHandler(this.configurationManager);
-		
-		new Metrics(this.plugin, 16769);
-		
-		this.liveManager = ManagerService.liveManager(this.configurationHandler);
 		
 		this.pluginManager.registerEvents(new InventoryClickListener(), this.plugin);
 		this.pluginManager.registerEvents(new InventoryCloseListener(this.plugin), this.plugin);
@@ -101,10 +102,16 @@ public final class Loader extends AbstractLoader {
 			 .command("live")
 			 .executor(new LiveCommand(this.configurationHandler, this.liveManager))
 			 .register();
+		
+		LogPrinter.info("Started plugin successfully in '" + (System.currentTimeMillis() - startTime) + "'.",
+			 "Running with [" + Bukkit.getVersion() + "-" + Bukkit.getBukkitVersion() + "]",
+			 "Developed by InitSync | v" + this.plugin.release);
 	}
 	
 	@Override
 	public void disable() {
+		LogPrinter.info("Disabling plugin...", "Developed by InitSync | v" + this.plugin.release);
+		
 		if (this.configurationManager != null) this.configurationManager = null;
 		if (this.configurationHandler != null) this.configurationHandler = null;
 	}
