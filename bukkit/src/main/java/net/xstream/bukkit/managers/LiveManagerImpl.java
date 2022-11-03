@@ -119,10 +119,10 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 				  "config.live.rows",
 				  null))
 			 .item(ItemClickable.builder(10)
-				  .item(BuilderService.fromMaterial(XMaterial.GREEN_DYE)
+				  .item(BuilderService.fromMaterial(XMaterial.LIME_DYE)
 					   .amount(1)
-					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.display-name", null))
-					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.close-menu.lore", null))
+					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.display-name", null))
+					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.announce-live.lore", null))
 					   .build())
 				  .action(inventory -> {
 					  if (!this.streams.containsKey(playerId)) {
@@ -200,14 +200,14 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 						return true;
 				  })
 				  .build())
-			 .item(ItemClickable.builder(22)
+			 .item(ItemClickable.builder(16)
 				  .item(BuilderService.fromMaterial(XMaterial.RED_DYE)
 					   .amount(1)
 					   .displayName(this.configurationHandler.text(File.CONFIG, "config.live.offline.display-name", null))
 					   .lore(this.configurationHandler.text(File.CONFIG, "config.live.offline.lore", null))
 					   .build())
 				  .action(inventory -> {
-						player.performCommand("/stream");
+						player.chat("/live offline");
 						return true;
 				  })
 				  .build())
@@ -223,28 +223,28 @@ public final class LiveManagerImpl implements BukkitLiveManager {
 				  })
 				  .build())
 			 .item(ItemClickable.builder(27)
-				  .item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+				  .item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
 				  .build())
 			 .item(ItemClickable.builder(28)
-					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
 					.build())
 			 .item(ItemClickable.builder(29)
-					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
 					.build())
 			 .item(ItemClickable.builder(30)
-					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
 					.build())
 			 .item(ItemClickable.builder(32)
-					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
 					.build())
 			 .item(ItemClickable.builder(33)
-					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
 					.build())
 			 .item(ItemClickable.builder(34)
-					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
 					.build())
 			 .item(ItemClickable.builder(35)
-					.item(new ItemStack(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial(), 1))
+					.item(new ItemStack(XMaterial.WHITE_STAINED_GLASS_PANE.parseMaterial(), 1))
 					.build())
 			 .build());
 	}
