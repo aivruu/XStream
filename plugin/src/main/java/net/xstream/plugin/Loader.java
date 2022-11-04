@@ -7,7 +7,6 @@ import net.xstream.api.AbstractLoader;
 import net.xstream.api.managers.LiveManager;
 import net.xstream.plugin.commands.LiveCommand;
 import net.xstream.plugin.commands.MainCommand;
-import net.xstream.plugin.listeners.ManagerClickListener;
 import net.xstream.plugin.services.LoaderService;
 import net.xstream.plugin.services.ManagerService;
 import net.xstream.plugin.utils.LogPrinter;
@@ -83,11 +82,6 @@ public final class Loader extends AbstractLoader {
 			 "config.yml",
 			 "messages.yml");
 		this.configurationManager.load("config.yml", "messages.yml");
-		
-		this.plugin
-			 .getServer()
-			 .getPluginManager()
-			 .registerEvents(new ManagerClickListener(this.liveManager, this.configurationHandler), this.plugin);
 		
 		LoaderService.commandLoader(this.plugin)
 			 .command("xstream")
