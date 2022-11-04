@@ -3,6 +3,7 @@ package net.xstream.plugin.commands;
 import com.cryptomorin.xseries.XSound;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.File;
+import net.xstream.api.events.StreamAnnounceEvent;
 import net.xstream.api.managers.LiveManager;
 import net.xstream.api.events.OfflineStreamEvent;
 import net.xstream.api.events.StreamPrepareEvent;
