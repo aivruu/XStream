@@ -147,7 +147,8 @@ public final class LiveCommand implements CommandExecutor {
 								player.sendMessage(TextUtils.parse(this.configurationHandler
 									 .text(File.CUSTOM,
 											"messages.live-url-null",
-											"messages.yml")));
+											"messages.yml")
+									 .replace("<prefix>", prefix)));
 								return false;
 							}
 							
@@ -155,7 +156,8 @@ public final class LiveCommand implements CommandExecutor {
 								player.sendMessage(TextUtils.parse(this.configurationHandler
 									 .text(File.CUSTOM,
 											"messages.live-already-announced",
-											"messages.yml")));
+											"messages.yml")
+									 .replace("<prefix>", prefix)));
 								return false;
 							}
 							
