@@ -50,7 +50,7 @@ If you want build the project locally, download it, you must be had Gradle and J
 Now for build the project
 ```
 git clone https://github.com/InitSync/XStream
-cd XConfig
+cd XStream
 ./gradlew clean shadowJar
 ```
 
