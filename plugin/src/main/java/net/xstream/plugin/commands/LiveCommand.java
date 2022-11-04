@@ -143,6 +143,22 @@ public final class LiveCommand implements CommandExecutor {
 						final StreamAnnounceEvent streamAnnounceEvent = new StreamAnnounceEvent();
 						this.pluginManager.callEvent(streamAnnounceEvent);
 						if (!streamAnnounceEvent.isCancelled()) {
+							if (!this.liveManager.streams().containsKey(playerId)) {
+								player.sendMessage(TextUtils.parse(this.configurationHandler
+									 .text(File.CUSTOM,
+											"messages.live-url-null",
+											"messages.yml")));
+								return false;
+							}
+							
+							if (this.liveManager.tasks().containsKey(playerId)) {
+								player.sendMessage(TextUtils.parse(this.configurationHandler
+									 .text(File.CUSTOM,
+											"messages.live-already-announced",
+											"messages.yml")));
+								return false;
+							}
+							
 							this.liveManager.announce(playerId);
 							player.sendMessage(TextUtils.parse(this.configurationHandler
 								 .text(File.CUSTOM,
