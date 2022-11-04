@@ -29,5 +29,5 @@ messages:
   announce-subtitle: "&e&lJOIN NOW TO STREAM!"
   announce-offline: "&c[Ended Live] &e&l<player_name> &fHas ended her stream!"
   announce-message:
-    - "&c[Live] &6&l<player_name> &7Is in live at: &9<stream_url>"
+    - "&c[Live] &6&l<player_name> &7Is in live at: &9&n<stream_url>"
     - "&a&lJOIN NOW DOING CLICK TO LINK!"
