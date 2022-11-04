@@ -52,7 +52,10 @@ public final class ManagerClickListener implements Listener {
 			}
 		}
 		
-		if (slot == 10) {
+		if (slot == this.configurationHandler.number(File.CONFIG,
+			 "config.live.content.announce-live.slot",
+			 null)
+		) {
 			event.setCancelled(true);
 			if (!this.liveManager.streams().containsKey(playerId)) {
 				player.sendMessage(TextUtils.parse(this.configurationHandler
@@ -118,18 +121,26 @@ public final class ManagerClickListener implements Listener {
 			return;
 		}
 		
-		if (slot == 13) {
+		if (slot == this.configurationHandler.number(File.CONFIG,
+			 "config.live.content.usage.slot",
+			 null)) {
 			event.setCancelled(true);
 			return;
 		}
 		
-		if (slot == 16) {
+		if (slot == this.configurationHandler.number(File.CONFIG,
+			 "config.live.content.offline.slot",
+			 null)
+		) {
 			event.setCancelled(true);
 			player.chat("/live offline");
 			return;
 		}
 		
-		if (slot == 31) {
+		if (slot == this.configurationHandler.number(File.CONFIG,
+			 "config.live.content.offline-close.slot",
+			 null)
+		) {
 			event.setCancelled(true);
 			player.closeInventory();
 		}
