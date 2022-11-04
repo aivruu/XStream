@@ -33,8 +33,8 @@ config:
     # Title for the Live Manager Menu.
     menu-title: "&7Manager -> Live"
 
-    # Rows amount for the menu.
-    size: 4
+    # Size for the menu.
+    size: 36
 
     # GUI Content/Items.
     # [!] NOTE: Please don't make any change the key-name of announce-live, usage, offline and close-menu.
@@ -44,6 +44,9 @@ config:
         # Material Type.
         material: LIME_DYE
 
+        # Slot Number.
+        slot: 10
+
         # Display Name.
         display-name: "&8&l> &eAnnounce Stream "
 
@@ -52,6 +55,7 @@ config:
           &7To click the item, you announces the stream to all!
       usage:
         material: WRITABLE_BOOK
+        slot: 13
         display-name: "&8&l> &bUsage"
         lore: |-
           &7To send the live press the &aAnnounce Stream &7button.
@@ -61,11 +65,13 @@ config:
           &7the &cLive Manager &7menu.
       offline:
         material: RED_DYE
+        slot: 16
         display-name: "&8&l> &cFinalize Stream"
         lore: |-
           &7If you want end the stream click this button.
       close-menu:
         material: BARRIER
+        slot: 31
         display-name: "&8&l> &cClose Live Manager"
         lore: |-
           &7Do you want close the &cLive Manager&7?
