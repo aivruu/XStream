@@ -4,7 +4,6 @@ import com.cryptomorin.xseries.XSound;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.File;
 import net.xstream.api.managers.LiveManager;
-import net.xstream.api.events.LiveMenuOpenEvent;
 import net.xstream.api.events.OfflineStreamEvent;
 import net.xstream.api.events.StreamPrepareEvent;
 import net.xstream.plugin.XStream;
@@ -139,14 +138,14 @@ public final class LiveCommand implements CommandExecutor {
 								 .replace("<prefix>", prefix)));
 						}
 						break;
-					case "menu":
-						final LiveMenuOpenEvent menuOpenEvent = new LiveMenuOpenEvent(player);
-						this.pluginManager.callEvent(menuOpenEvent);
-						if (!menuOpenEvent.isCancelled()) {
-							this.liveManager.openLiveManager(player);
+					case "send":
+						final StreamAnnounceEvent streamAnnounceEvent = new StreamAnnounceEvent();
+						this.pluginManager.callEvent(streamAnnounceEvent);
+						if (!streamAnnounceEvent.isCancelled()) {
+							this.liveManager.announce(playerId);
 							player.sendMessage(TextUtils.parse(this.configurationHandler
 								 .text(File.CUSTOM,
-										"messages.live-menu-open",
+										"messages.live-announce",
 										"messages.yml")
 								 .replace("<prefix>", prefix)));
 						}
