@@ -44,11 +44,11 @@ public final class InventoryBuilder {
 		public Inventory build() {
 			final Inventory inventory = Bukkit.createInventory(null, this.size, this.title);
 			for (String key : this.section.getKeys(false)) {
-				inventory.setItem(this.section.getInt("config.live.content." + key + ".slot"),
-					 BuilderService.fromMaterial(this.section.getString("config.live.content." + key + ".material"))
+				inventory.setItem(this.section.getInt(key + ".slot"),
+					 BuilderService.fromMaterial(this.section.getString(key + ".material"))
 						  .amount(1)
-						  .displayName(this.section.getString("config.live.content." + key + ".display-name"))
-						  .lore(this.section.getString("config.live.content." + key + ".lore"))
+						  .displayName(this.section.getString(key + ".display-name"))
+						  .lore(this.section.getString(key + ".lore"))
 						  .build());
 			}
 			
