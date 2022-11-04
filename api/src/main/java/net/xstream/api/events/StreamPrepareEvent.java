@@ -28,6 +28,11 @@ public final class StreamPrepareEvent extends Event implements Cancellable {
 		this.link = link;
 	}
 	
+	/**
+	 * Returns the link used at this event.
+	 *
+	 * @return A String object.
+	 */
 	public @NotNull String getLink() {
 		return this.link;
 	}

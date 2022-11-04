@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Utility class for strings/texts.
+ * Utility class for use with Strings.
  *
  * @author InitSync
  * @version 1.0.0

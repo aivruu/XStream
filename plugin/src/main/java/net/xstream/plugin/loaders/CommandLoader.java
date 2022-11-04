@@ -9,6 +9,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+/**
+ * Loader for register commands rapidly.
+ *
+ * @author InitSync
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public final class CommandLoader {
 	private CommandLoader() {}
 	

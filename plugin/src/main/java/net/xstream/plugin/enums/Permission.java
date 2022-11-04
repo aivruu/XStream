@@ -2,6 +2,13 @@ package net.xstream.plugin.enums;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Enum for handle plugin permissions.
+ *
+ * @author InitSync
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public enum Permission {
 	HELP_CMD ("xstream.help"),
 	RELOAD_CMD ("xstream.reload"),

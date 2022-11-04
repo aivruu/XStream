@@ -28,6 +28,11 @@ public final class OfflineStreamEvent extends Event implements Cancellable {
 		this.player = Objects.requireNonNull(player, "The player is null.");
 	}
 	
+	/**
+	 * Returns the Player object of this event.
+	 *
+	 * @return A Player object.
+	 */
 	public @NotNull Player player() {
 		return this.player;
 	}

@@ -1,8 +1,6 @@
 package net.xstream.plugin.utils;
 
-import com.cryptomorin.xseries.messages.ActionBar;
 import com.cryptomorin.xseries.messages.Titles;
-import net.xstream.plugin.XStream;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -45,22 +43,5 @@ public final class Utils {
 			 fadeOut,
 			 TextUtils.parse(title),
 			 TextUtils.parse(subtitle));
-	}
-	
-	/**
-	 * Sends an actionbar to player with a duration.
-	 *
-	 * @param player Player object.
-	 * @param message Message to send.
-	 * @param duration Duration in ticks.
-	 */
-	public static void showActionBar(@NotNull Player player, @NotNull String message, long duration) {
-		Objects.requireNonNull(player, "The player is null.");
-		Validate.notEmpty(message, "The actionbar message is empty.");
-		
-		ActionBar.sendActionBar(XStream.instance(),
-			 player,
-			 message,
-			 duration);
 	}
 }

@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * @author InitSync
  * @version 1.0.0
  * @since 1.0.0
+ * @see org.bukkit.plugin.java.JavaPlugin
  */
 public final class XStream extends JavaPlugin {
 	private static XStream instance;

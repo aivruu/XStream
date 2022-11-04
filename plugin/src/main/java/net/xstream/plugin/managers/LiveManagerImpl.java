@@ -15,6 +15,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Implementation of LiveManager interface to handle internally the LiveManager features.
+ *
+ * @author InitSync
+ * @version 1.0.0
+ * @since 1.0.0
+ * @see net.xstream.api.managers.LiveManager
+ */
 public final class LiveManagerImpl implements LiveManager {
 	private final Map<UUID, String> streams;
 	private final Map<UUID, BukkitTask> tasks;
