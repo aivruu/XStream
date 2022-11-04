@@ -1,3 +1,6 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9f87bb6b1d894e1a80a61d6157d07b04)](https://www.codacy.com/gh/InitSync/XStream/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=InitSync/XStream&amp;utm_campaign=Badge_Grade)
+[![](https://jitpack.io/v/InitSync/XStream.svg)](https://jitpack.io/#InitSync/XStream)
+
 **XStream** is a plugin that allows to your Streamers announce their streams/lives globally to all the server, constantly from time to time of asynchronous way to avoid loss performance. Very customizable with multiple functions and checks to avoid all bypass type or errors.
 
 # 🛠️ | Import
