@@ -1,10 +1,8 @@
 package net.xstream.plugin.services;
 
-import com.cryptomorin.xseries.XMaterial;
 import net.xstream.plugin.XStream;
 import net.xstream.plugin.builders.InventoryBuilder;
 import net.xstream.plugin.builders.ItemBuilder;
-import org.apache.commons.lang.Validate;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,9 +15,7 @@ public interface BuilderService {
 	 */
 	@Contract ("_ -> new")
 	static ItemBuilder.@NotNull Builder fromMaterial(@NotNull String materialName) {
-		Validate.notEmpty(materialName, "The material name is empty.");
-		
-		return new ItemBuilder.Builder(XMaterial.matchXMaterial(materialName).get().parseMaterial());
+		return new ItemBuilder.Builder(materialName);
 	}
 	
 	/**
