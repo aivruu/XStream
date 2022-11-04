@@ -4,11 +4,9 @@ import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.File;
 import net.xstream.api.managers.LiveManager;
 import net.xstream.plugin.XStream;
-import net.xstream.plugin.services.BuilderService;
 import net.xstream.plugin.utils.TextUtils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 
@@ -101,27 +99,5 @@ public final class LiveManagerImpl implements LiveManager {
 		this.tasks
 			 .remove(uuid)
 			 .cancel();
-	}
-	
-	/**
-	 * Opens the Live Manager Menu to player.
-	 *
-	 * @param player Player to open the menu.
-	 */
-	@Override
-	public void openLiveManager(@NotNull Player player) {
-		Objects.requireNonNull(player, "The player is null.");
-
-		player.openInventory(BuilderService.newGui(XStream.instance())
-			 .title(this.configurationHandler.text(File.CONFIG,
-				  "config.live.menu-title",
-				  null))
-			 .size(this.configurationHandler.number(File.CONFIG,
-				  "config.live.size",
-				  null))
-			 .configSection(this.configurationHandler.configSection(File.CONFIG,
-				  "config.live.content",
-				  null))
-			 .build());
 	}
 }
