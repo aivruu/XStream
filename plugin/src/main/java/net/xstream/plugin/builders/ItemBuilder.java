@@ -1,5 +1,6 @@
 package net.xstream.plugin.builders;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.xstream.plugin.utils.TextUtils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Material;
@@ -15,14 +16,15 @@ public final class ItemBuilder {
 	private ItemBuilder() {}
 	
 	public static class Builder {
-		private final Material material;
+		private final String materialName;
 		
 		private int amount;
 		private String displayName;
 		private String lore;
 		
-		public Builder(@NotNull Material material) {
-			this.material = Objects.requireNonNull(material, "The material is null.");
+		public Builder(@NotNull String materialName) {
+			Validate.notEmpty(materialName, "The material name is empty.");
+			this.materialName = materialName;
 		}
 		
 		public Builder amount(int amount) {
@@ -42,7 +44,9 @@ public final class ItemBuilder {
 		}
 		
 		public ItemStack build() {
-			final ItemStack itemStack = new ItemStack(this.material, this.amount);
+			final ItemStack itemStack = new ItemStack(XMaterial.matchXMaterial(this.materialName)
+				 .get()
+				 .parseMaterial(), this.amount);
 			final ItemMeta meta = itemStack.getItemMeta();
 			assert meta != null;
 			meta.setDisplayName(this.displayName);
