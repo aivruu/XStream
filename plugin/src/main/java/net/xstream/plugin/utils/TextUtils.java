@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * Utility class for use with Strings.
  *
  * @author InitSync
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public final class TextUtils {

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * Interface to handle loaders instances.
  *
  * @author InitSync
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public interface LoaderService {

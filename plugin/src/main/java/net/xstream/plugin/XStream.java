@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
  * Main class.
  *
  * @author InitSync
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  * @see org.bukkit.plugin.java.JavaPlugin
  */

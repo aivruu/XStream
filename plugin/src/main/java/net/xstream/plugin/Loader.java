@@ -19,7 +19,7 @@ import java.util.Objects;
  * Loader that load and manage internally the plugin components.
  *
  * @author InitSync
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  * @see net.xstream.api.AbstractLoader
  */

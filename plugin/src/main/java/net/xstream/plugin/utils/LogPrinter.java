@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * Utility class to send multiple logs easy and rapidly.
  *
  * @author InitSync
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public final class LogPrinter {
