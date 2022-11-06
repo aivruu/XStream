@@ -13,17 +13,19 @@ val description = "Simple way to announce your streams globally!"
 repositories {
 	maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 	maven("https://jitpack.io/")
+	maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 	mavenCentral()
 }
 
 dependencies {
 	compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
+	compileOnly("me.clip:placeholderapi:2.11.2")
 	
 	implementation(project(":api"))
 	
 	implementation("org.jetbrains:annotations:23.0.0")
 	implementation("commons-lang:commons-lang:2.6")
-	implementation("com.github.InitSync:XConfig:1.0.2")
+	implementation("com.github.InitSync:XConfig:1.0.3")
 	implementation("com.github.cryptomorin:XSeries:9.1.0")
 }
 
