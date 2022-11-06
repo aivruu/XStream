@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-  compileOnly("com.github.InitSync:XStream:1.0.0")
+  compileOnly("com.github.InitSync:XStream:1.0.1")
 }
 ```
 
@@ -33,7 +33,7 @@ Maven
   <dependency>
     <groupId>com.github.InitSync</groupId>
     <artifactId>XStream</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </dependency>
 </dependencies>
 ```
