@@ -1,7 +1,6 @@
 package net.xstream.plugin.managers;
 
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
-import net.xconfig.enums.File;
 import net.xstream.api.managers.LiveManager;
 import net.xstream.plugin.XStream;
 import net.xstream.plugin.utils.TextUtils;
@@ -78,18 +77,14 @@ public final class LiveManagerImpl implements LiveManager {
 		final BukkitTask task = Bukkit.getScheduler().runTaskTimerAsynchronously(XStream.instance(), () -> {
 			Bukkit.getOnlinePlayers().forEach(player -> {
 				this.configurationHandler
-					.textList(File.CUSTOM,
-						  "messages.announce-message",
-						  "messages.yml")
+					.textList("messages.yml", "messages.announce-message")
 					.forEach(msg -> {
-						player.sendMessage(TextUtils.parse(msg.replace("<player_name>",
+						player.sendMessage(TextUtils.parse(player, msg.replace("<player_name>",
 							 Bukkit.getPlayer(uuid).getName())
 							 .replace("<stream_url>", this.streams.get(uuid))));
 					});
 			});
-		}, 1L, this.configurationHandler.number(File.CONFIG,
-			 "config.announces-delay",
-			 null));
+		}, 1L, this.configurationHandler.number("config.yml", "config.announces-delay"));
 		
 		this.tasks.put(uuid, task);
 	}

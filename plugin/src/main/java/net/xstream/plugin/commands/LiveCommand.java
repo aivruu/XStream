@@ -2,7 +2,6 @@ package net.xstream.plugin.commands;
 
 import com.cryptomorin.xseries.XSound;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
-import net.xconfig.enums.File;
 import net.xstream.api.events.StreamAnnounceEvent;
 import net.xstream.api.managers.LiveManager;
 import net.xstream.api.events.OfflineStreamEvent;
@@ -46,15 +45,11 @@ public final class LiveCommand implements CommandExecutor {
 		 @NotNull String label,
 		 @NotNull String[] args
 	) {
-		final String prefix = this.configurationHandler.text(File.CONFIG,
-			 "config.prefix",
-			 null);
+		final String prefix = this.configurationHandler.text("config.yml", "config.prefix");
 		
 		if (sender instanceof ConsoleCommandSender) {
-			sender.sendMessage(TextUtils.parse(this.configurationHandler
-				 .text(File.CUSTOM,
-					  "messages.no-console",
-					  "messages.yml")
+			sender.sendMessage(TextUtils.colorize(this.configurationHandler
+				 .text("messages.yml", "messages.no-console")
 				 .replace("<prefix>", prefix)));
 			return false;
 		}
@@ -65,28 +60,22 @@ public final class LiveCommand implements CommandExecutor {
 			
 			if (player.hasPermission(Permission.LIVE_CMD.getPerm())) {
 				if (args.length == 0) {
-					player.sendMessage(TextUtils.parse(this.configurationHandler
-						 .text(File.CUSTOM,
-							  "messages.live-usage",
-							  "messages.yml")
+					player.sendMessage(TextUtils.colorize(this.configurationHandler
+						 .text("messages.yml", "messages.live-usage")
 						 .replace("<prefix>", prefix)));
 					return false;
 				}
 				
 				switch (args[0]) {
 					default:
-						player.sendMessage(TextUtils.parse(this.configurationHandler
-							 .text(File.CUSTOM,
-								  "messages.no-command",
-								  "messages.yml")
+						player.sendMessage(TextUtils.colorize(this.configurationHandler
+							 .text("messages.yml", "messages.no-command")
 							 .replace("<prefix>", prefix)));
 						break;
 					case "offline":
 						if (!this.liveManager.isStreaming(playerId)) {
-							player.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.live-not-started",
-										"messages.yml")
+							player.sendMessage(TextUtils.colorize(this.configurationHandler
+								 .text("messages.yml", "messages.live-not-started")
 								 .replace("<prefix>", prefix)));
 							break;
 						}
@@ -95,35 +84,27 @@ public final class LiveCommand implements CommandExecutor {
 						this.pluginManager.callEvent(offlineStreamEvent);
 						if (!offlineStreamEvent.isCancelled()) {
 							this.liveManager.offline(playerId);
-							player.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.live-offline",
-										"messages.yml")
+							player.sendMessage(TextUtils.colorize(this.configurationHandler
+								 .text("messages.yml", "messages.live-offline")
 								 .replace("<prefix>", prefix)));
 							Bukkit.getOnlinePlayers().forEach(connected -> {
-								connected.sendMessage(TextUtils.parse(this.configurationHandler
-									 .text(File.CUSTOM,
-											"messages.announce-offline",
-											"messages.yml")
+								connected.sendMessage(TextUtils.parse(connected, this.configurationHandler
+									 .text("messages.yml", "messages.announce-offline")
 									 .replace("<player_name>", player.getName())));
 							});
 						}
 						break;
 					case "url":
 						if (args.length == 1) {
-							player.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.live-missing-link",
-										"messages.yml")
+							player.sendMessage(TextUtils.colorize(this.configurationHandler
+								 .text("messages.yml", "messages.live-missing-link")
 								 .replace("<prefix>", prefix)));
 							return false;
 						}
 						
 						if (!TextUtils.isValidUrl(args[1])) {
-							player.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.live-format",
-										"messages.yml")
+							player.sendMessage(TextUtils.colorize(this.configurationHandler
+								 .text("messages.yml", "messages.live-format")
 								 .replace("<prefix>", prefix)));
 							return false;
 						}
@@ -132,10 +113,8 @@ public final class LiveCommand implements CommandExecutor {
 						this.pluginManager.callEvent(streamPrepareEvent);
 						if (!streamPrepareEvent.isCancelled()) {
 							this.liveManager.prepare(playerId, args[1]);
-							player.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.live-url-set",
-										"messages.yml")
+							player.sendMessage(TextUtils.colorize(this.configurationHandler
+								 .text("messages.yml", "messages.live-url-set")
 								 .replace("<prefix>", prefix)));
 						}
 						break;
@@ -144,48 +123,33 @@ public final class LiveCommand implements CommandExecutor {
 						this.pluginManager.callEvent(streamAnnounceEvent);
 						if (!streamAnnounceEvent.isCancelled()) {
 							if (!this.liveManager.streams().containsKey(playerId)) {
-								player.sendMessage(TextUtils.parse(this.configurationHandler
-									 .text(File.CUSTOM,
-											"messages.live-url-null",
-											"messages.yml")
+								player.sendMessage(TextUtils.colorize(this.configurationHandler
+									 .text("messages.yml", "messages.live-url-null")
 									 .replace("<prefix>", prefix)));
 								return false;
 							}
 							
 							if (this.liveManager.tasks().containsKey(playerId)) {
-								player.sendMessage(TextUtils.parse(this.configurationHandler
-									 .text(File.CUSTOM,
-											"messages.live-already-announced",
-											"messages.yml")
+								player.sendMessage(TextUtils.colorize(this.configurationHandler
+									 .text("messages.yml", "messages.live-already-announced")
 									 .replace("<prefix>", prefix)));
 								return false;
 							}
 							
 							this.liveManager.announce(playerId);
-							player.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.live-announce",
-										"messages.yml")
+							player.sendMessage(TextUtils.parse(player, this.configurationHandler
+								 .text("messages.yml", "messages.live-announce")
 								 .replace("<prefix>", prefix)));
 						}
 						break;
 				}
 			} else {
 				player.playSound(player.getLocation(),
-					 XSound.valueOf(this.configurationHandler.text(File.CONFIG,
-								 "config.sounds.no-perm",
-								 null))
-							.parseSound(),
-					 this.configurationHandler.number(File.CONFIG,
-						  "config.sounds.volume-level",
-						  null),
-					 this.configurationHandler.number(File.CONFIG,
-							"config.sounds.volume-level",
-							null));
-				player.sendMessage(TextUtils.parse(this.configurationHandler
-					 .text(File.CUSTOM,
-							"messages.no-perm",
-							"messages.yml")
+					XSound.valueOf(this.configurationHandler.text("config.yml", "config.sounds.no-perm")).parseSound(),
+					this.configurationHandler.number("config.yml", "config.sounds.volume-level"),
+					this.configurationHandler.number("config.yml", "config.sounds.volume-level"));
+				player.sendMessage(TextUtils.colorize(this.configurationHandler
+					 .text("messages.yml", "messages.no-perm")
 					 .replace("<prefix>", prefix)));
 			}
 			return false;

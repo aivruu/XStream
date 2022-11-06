@@ -41,7 +41,7 @@ public final class Utils {
 			 fadeIn,
 			 stay,
 			 fadeOut,
-			 TextUtils.parse(title),
-			 TextUtils.parse(subtitle));
+			 TextUtils.parse(player, title),
+			 TextUtils.parse(player, subtitle));
 	}
 }
