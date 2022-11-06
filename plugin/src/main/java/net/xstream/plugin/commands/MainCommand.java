@@ -3,7 +3,6 @@ package net.xstream.plugin.commands;
 import com.cryptomorin.xseries.XSound;
 import net.xconfig.bukkit.config.BukkitConfigurationHandler;
 import net.xconfig.enums.Action;
-import net.xconfig.enums.File;
 import net.xstream.plugin.XStream;
 import net.xstream.plugin.enums.Permission;
 import net.xstream.plugin.utils.TextUtils;
@@ -26,17 +25,9 @@ public final class MainCommand implements CommandExecutor {
 	public MainCommand(@NotNull BukkitConfigurationHandler configurationHandler) {
 		this.configurationHandler = Objects.requireNonNull(configurationHandler,
 			 "The BukkitConfigurationHandler object is null.");
-		this.permSound = XSound.valueOf(this.configurationHandler.text(File.CONFIG,
-			 "config.sounds.no-perm",
-			 null))
-			 .parseSound();
-		this.reloadSound = XSound.valueOf(this.configurationHandler.text(File.CONFIG,
-					"config.sounds.reload",
-					null))
-			 .parseSound();
-		this.volume = this.configurationHandler.number(File.CONFIG,
-			 "config.sounds.volume-level",
-			 null);
+		this.permSound = XSound.valueOf(this.configurationHandler.text("config.yml", "config.sounds.no-perm")).parseSound();
+		this.reloadSound = XSound.valueOf(this.configurationHandler.text("config.yml", "config.sounds.reload")).parseSound();
+		this.volume = this.configurationHandler.number("config.yml", "config.sounds.volume-level");
 	}
 	
 	@Override
@@ -47,81 +38,65 @@ public final class MainCommand implements CommandExecutor {
 		 @NotNull String[] args
 	) {
 		final String version = XStream.instance().release;
-		final String prefix = this.configurationHandler.text(File.CONFIG, "config.prefix", null);
+		final String prefix = this.configurationHandler.text("config.yml", "config.prefix");
 		
 		if (sender instanceof ConsoleCommandSender) {
 			if (args.length == 0) {
-				sender.sendMessage(TextUtils.parse(prefix + " &fExecutes the &e/xs help &fcommand to "
+				sender.sendMessage(TextUtils.colorize(prefix + " &fExecutes the &e/xs help &fcommand to "
 					 + "view the commands."));
-				sender.sendMessage(TextUtils.parse(prefix + " &fDeveloped by &aInitSync &7- &b" + version));
+				sender.sendMessage(TextUtils.colorize(prefix + " &fDeveloped by &aInitSync &7- &b" + version));
 				return false;
 			}
 			
 			switch (args[0]) {
 				default:
-					sender.sendMessage(TextUtils.parse(this.configurationHandler
-						 .text(File.CUSTOM,
-								"messages.no-command",
-								"messages.yml")
+					sender.sendMessage(TextUtils.colorize(this.configurationHandler
+						 .text("messages.yml", "messages.no-command")
 						 .replace("<prefix>", prefix)));
 					break;
 				case "help":
 					this.configurationHandler
-						 .textList(File.CUSTOM,
-								"messages.help",
-								"messages.yml")
-						 .forEach(message -> sender.sendMessage(TextUtils.parse(message.replace("<release>", version))));
+						 .textList("messages.yml", "messages.help")
+						 .forEach(message -> sender.sendMessage(TextUtils.colorize(message.replace("<release>", version))));
 					break;
 				case "reload":
 					if (args.length == 1) {
-						this.configurationHandler.doSomething(File.CONFIG,
+						this.configurationHandler.doSomething("config.yml",
 							 Action.RELOAD,
-							 null,
 							 null,
 							 null);
-						this.configurationHandler.doSomething(File.CUSTOM,
+						this.configurationHandler.doSomething("messages.yml",
 							 Action.RELOAD,
 							 null,
-							 null,
-							 "messages.yml");
-						sender.sendMessage(TextUtils.parse(this.configurationHandler
-							 .text(File.CUSTOM,
-									"messages.reload-all",
-									"messages.yml")
+							 null);
+						sender.sendMessage(TextUtils.colorize(this.configurationHandler
+							 .text("messages.yml", "messages.reload-all")
 							 .replace("<prefix>", prefix)));
 						break;
 					}
 					
 					switch (args[1]) {
 						default:
-							sender.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.no-file",
-										"messages.yml")
+							sender.sendMessage(TextUtils.colorize(this.configurationHandler
+								 .text("messages.yml", "messages.no-file")
 								 .replace("<prefix>", prefix)));
 							break;
 						case "config":
-							this.configurationHandler.doSomething(File.CONFIG,
+							this.configurationHandler.doSomething("config.yml",
 								 Action.RELOAD,
 								 null,
-								 null,
 								 null);
-							sender.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.reload-config",
-										"messages.yml")
+							sender.sendMessage(TextUtils.colorize(this.configurationHandler
+								 .text("messages.yml", "messages.reload-config")
 								 .replace("<prefix>", prefix)));
 							break;
 						case "messages":
-							this.configurationHandler.doSomething(File.CUSTOM,
+							this.configurationHandler.doSomething("messages.yml",
 								 Action.RELOAD,
 								 null,
-								 null,
-								 "messages.yml");
-							sender.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.reload-messages",
-										"messages.yml")
+								 null);
+							sender.sendMessage(TextUtils.colorize(this.configurationHandler
+								 .text("messages.yml", "messages.reload-messages")
 								 .replace("<prefix>", prefix)));
 							break;
 					}
@@ -134,77 +109,64 @@ public final class MainCommand implements CommandExecutor {
 			final Player player = (Player) sender;
 			
 			if (args.length == 0) {
-				player.sendMessage(TextUtils.parse(prefix + " &fExecutes the &e/xs help &fcommand to "
+				player.sendMessage(TextUtils.colorize(prefix + " &fExecutes the &e/xs help &fcommand to "
 					 + "view the commands."));
-				player.sendMessage(TextUtils.parse(prefix + " &fDeveloped by &aInitSync &7- &b" + XStream.instance().release));
+				player.sendMessage(TextUtils.colorize(prefix + " &fDeveloped by &aInitSync &7- &b" + XStream.instance().release));
 				return false;
 			}
 			
 			switch (args[0]) {
 				default:
-					player.sendMessage(TextUtils.parse(this.configurationHandler
-						 .text(File.CUSTOM,
-								"messages.no-command",
-								"messages.yml")
+					player.sendMessage(TextUtils.colorize(this.configurationHandler
+						 .text("messages.yml", "messages.no-command")
 						 .replace("<prefix>", prefix)));
 					break;
 				case "help":
 					if (player.hasPermission(Permission.HELP_CMD.getPerm())) {
 						this.configurationHandler
-							 .textList(File.CUSTOM,
-									"messages.help",
-									"messages.yml")
-							 .forEach(message -> player.sendMessage(TextUtils.parse(message.replace("<release>", version))));
+							 .textList("messages.yml", "messages.help")
+							 .forEach(message -> player.sendMessage(TextUtils.colorize(message.replace("<release>", version))));
 					} else {
 						player.playSound(player.getLocation(),
 							 this.permSound,
 							 this.volume,
 							 this.volume);
-						player.sendMessage(TextUtils.parse(this.configurationHandler
-							 .text(File.CUSTOM,
-									"messages.no-perm",
-									"messages.yml")
+						player.sendMessage(TextUtils.colorize(this.configurationHandler
+							 .text("messages.yml", "messages.no-perm")
 							 .replace("<prefix>", prefix)));
 					}
 					break;
 				case "reload":
 					if (player.hasPermission(Permission.RELOAD_CMD.getPerm())) {
 						if (args.length == 1) {
-							this.configurationHandler.doSomething(File.CONFIG,
+							this.configurationHandler.doSomething("config.yml",
 								 Action.RELOAD,
-								 null,
 								 null,
 								 null);
-							this.configurationHandler.doSomething(File.CUSTOM,
+							this.configurationHandler.doSomething("messages.yml",
 								 Action.RELOAD,
 								 null,
-								 null,
-								 "messages.yml");
+								 null);
 							
 							player.playSound(player.getLocation(),
 								 this.reloadSound,
 								 this.volume,
 								 this.volume);
-							player.sendMessage(TextUtils.parse(this.configurationHandler
-								 .text(File.CUSTOM,
-										"messages.reload-all",
-										"messages.yml")
+							player.sendMessage(TextUtils.colorize(this.configurationHandler
+								 .text("messages.yml", "messages.reload-all")
 								 .replace("<prefix>", prefix)));
 							break;
 						}
 						
 						switch (args[1]) {
 							default:
-								player.sendMessage(TextUtils.parse(this.configurationHandler
-									 .text(File.CUSTOM,
-											"messages.no-file",
-											"messages.yml")
+								player.sendMessage(TextUtils.colorize(this.configurationHandler
+									 .text("messages.yml", "messages.no-file")
 									 .replace("<prefix>", prefix)));
 								break;
 							case "config":
-								this.configurationHandler.doSomething(File.CONFIG,
+								this.configurationHandler.doSomething("config.yml",
 									 Action.RELOAD,
-									 null,
 									 null,
 									 null);
 								
@@ -212,27 +174,22 @@ public final class MainCommand implements CommandExecutor {
 									 this.reloadSound,
 									 this.volume,
 									 this.volume);
-								player.sendMessage(TextUtils.parse(this.configurationHandler
-									 .text(File.CUSTOM,
-											"messages.reload-config",
-											"messages.yml")
+								player.sendMessage(TextUtils.colorize(this.configurationHandler
+									 .text("messages.yml", "messages.reload-config")
 									 .replace("<prefix>", prefix)));
 								break;
 							case "messages":
-								this.configurationHandler.doSomething(File.CUSTOM,
+								this.configurationHandler.doSomething("messages.yml",
 									 Action.RELOAD,
 									 null,
-									 null,
-									 "messages.yml");
+									 null);
 								
 								player.playSound(player.getLocation(),
 									 this.reloadSound,
 									 this.volume,
 									 this.volume);
-								player.sendMessage(TextUtils.parse(this.configurationHandler
-									 .text(File.CUSTOM,
-											"messages.reload-messages",
-											"messages.yml")
+								player.sendMessage(TextUtils.colorize(this.configurationHandler
+									 .text("messages.yml", "messages.reload-messages")
 									 .replace("<prefix>", prefix)));
 								break;
 						}
@@ -241,10 +198,8 @@ public final class MainCommand implements CommandExecutor {
 							 this.permSound,
 							 this.volume,
 							 this.volume);
-						player.sendMessage(TextUtils.parse(this.configurationHandler
-							 .text(File.CUSTOM,
-									"messages.no-perm",
-									"messages.yml")
+						player.sendMessage(TextUtils.colorize(this.configurationHandler
+							 .text("messages.yml", "messages.no-perm")
 							 .replace("<prefix>", prefix)));
 					}
 					break;
