@@ -12,7 +12,7 @@ import java.util.Objects;
  * Event for Bukkit Servers called when the streamer sets offline the stream with /live offline.
  *
  * @author InitSync
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  * @see org.bukkit.event.Event
  * @see org.bukkit.event.Cancellable

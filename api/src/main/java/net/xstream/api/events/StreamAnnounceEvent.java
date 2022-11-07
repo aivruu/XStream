@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * Event for Bukkit servers that handles when a stream is announced.
  *
  * @author InitSync
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  * @see Event
  * @see Cancellable

@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * Bukkit Event called when the streamer sets the link of stream.
  *
  * @author InitSync
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  * @see org.bukkit.event.Event
  * @see org.bukkit.event.Cancellable

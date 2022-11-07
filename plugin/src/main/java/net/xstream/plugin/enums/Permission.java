@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * Enum for handle plugin permissions.
  *
  * @author InitSync
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  */
 public enum Permission {

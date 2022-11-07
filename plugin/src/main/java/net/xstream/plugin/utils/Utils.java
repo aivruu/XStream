@@ -11,7 +11,7 @@ import java.util.Objects;
  * Utility class to handle visual messages for the player.
  *
  * @author InitSync
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  */
 public final class Utils {

@@ -7,6 +7,7 @@ import net.xstream.api.AbstractLoader;
 import net.xstream.api.managers.LiveManager;
 import net.xstream.plugin.commands.LiveCommand;
 import net.xstream.plugin.commands.MainCommand;
+import net.xstream.plugin.managers.UpdateChecker;
 import net.xstream.plugin.services.LoaderService;
 import net.xstream.plugin.services.ManagerService;
 import net.xstream.plugin.utils.LogPrinter;
@@ -19,7 +20,7 @@ import java.util.Objects;
  * Loader that load and manage internally the plugin components.
  *
  * @author InitSync
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  * @see net.xstream.api.AbstractLoader
  */
@@ -90,6 +91,13 @@ public final class Loader extends AbstractLoader {
 			 .command("live")
 			 .executor(new LiveCommand(this.configurationHandler, this.liveManager))
 			 .register();
+		
+		if (this.configurationHandler.condition("config.yml", "config.notify")) {
+			new UpdateChecker(this.plugin, 106095).getVersion(latestVersion -> {
+				if (this.plugin.release.equals(latestVersion)) LogPrinter.info("There is not a new update available.");
+				else LogPrinter.warn("There is a new update available.");
+			});
+		}
 		
 		LogPrinter.info("Started plugin successfully in '" + (System.currentTimeMillis() - startTime) + "'ms.",
 			 "Running with [" + Bukkit.getVersion() + "-" + Bukkit.getBukkitVersion() + "]",
