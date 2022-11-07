@@ -1,4 +1,7 @@
 config:
+  # Notify if there is a new update?
+  notify: true
+
   # Plugin Messages Prefix
   prefix: "&6[XStream]"
 
